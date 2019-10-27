@@ -1,25 +1,10 @@
-# Lingi
-Last Christmas, I gave you my heart
-But the very next day you gave it away
-This year, to save me from tears
-I'll give it to someone special
-Last Christmas, I gave you my heart
-But the very next day you gave it away
-This year, to save me from tears
-I'll give it to someone special
-Once bitten and twice shy
-I keep my distance
-But you still catch my eye
-Tell me, baby
-Do you recognize me?
-Well, it's been a year
-It doesn't surprise me
-(Merry Christmas!) I wrapped it up and sent it
-With a note saying, "I love you, " I meant it
-Now, I know what a fool I've been
-But if you kissed me now
-I know you'd fool me again
-Last Christmas, I gave you my heart
-But the very next day you gave it away
-This year, to save me from tears
-I'll give it to someone special
+## Lingi
+# Historyjki
+Jako użytkownik chcę wybierać test z listy testów, że wybrać najbardziej mnie interesujący
+Jako użytkownik chcę wybierać język testów, żeby uczyć się wedle własnych preferencji
+Jako użytkownik chcę wybierać rodzaj testów, żeby uczyć się moim ulubionym sposobem
+Jako użytkownik chcę wybierać poziom testów, żeby były dostosowane do mojej wiedzy
+Jako użytkownik chcę dodawać, edytować testy, żeby inni mogli je rozwiązywać
+Jako użytkownik chcę mieć możliwość podglądu swojego progresu, żeby mieć świadomość rozwoju
+Jako użytkownik chcę widzieć polecane do rozwiązania testy, żeby nie musieć ich szukać
+Jako użytkownik chcę mieć informację o wiarygodności testu, żebym miał pewność poprawnej nauki
