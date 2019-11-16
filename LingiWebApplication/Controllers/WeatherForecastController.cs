@@ -7,9 +7,8 @@ using Microsoft.Extensions.Logging;
 
 namespace LingiWebApplication.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [Route("weatherforecast")]
+    public class WeatherForecastController : Controller
     {
         private static readonly string[] Summaries = new[]
         {

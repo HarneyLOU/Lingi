@@ -1,9 +1,11 @@
 ﻿using LingiWebApplication.Data.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LingiWebApplication.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
@@ -16,7 +18,5 @@ namespace LingiWebApplication.Data
 
             modelBuilder.Entity<ApplicationUser>().ToTable("Users");
         }
-
-        public DbSet<ApplicationUser> Users { get; set; }
     }
 }
