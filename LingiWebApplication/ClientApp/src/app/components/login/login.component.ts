@@ -54,7 +54,6 @@ export class LoginComponent {
             },
                 err => {
                     // login failed
-                    console.log(err)
                     this.form.setErrors({
                         "auth": "Incorrect username or password"
                     });
@@ -83,8 +82,8 @@ export class LoginComponent {
     }
 
     // returns TRUE if the FormControl is invalid after user changes
-    hasError(name: string) {
+    hasError(name: string) : boolean {
         var e = this.getFormControl(name);
-        return e && (e.dirty || e.touched) && !e.valid;
+        return e && (e.dirty || e.touched) && e.invalid;
     }
 }
