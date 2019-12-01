@@ -1,4 +1,5 @@
-﻿using LingiWebApplication.Data;
+﻿using AutoMapper;
+using LingiWebApplication.Data;
 using LingiWebApplication.Data.Models;
 using LingiWebApplication.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -19,9 +20,10 @@ namespace LingiWebApplication.Controllers
             ApplicationDbContext context,
             RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager,
-            IConfiguration configuration
+            IConfiguration configuration,
+            IMapper mapper
             )
-            : base(context, roleManager, userManager, configuration) { }
+            : base(context, roleManager, userManager, configuration, mapper) { }
 
         [HttpPost("Auth")]
         public async Task<IActionResult> Auth([FromBody]TokenRequestViewModel model)

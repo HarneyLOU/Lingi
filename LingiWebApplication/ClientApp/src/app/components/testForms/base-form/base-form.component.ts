@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-base-form',
@@ -7,10 +8,14 @@ import { Component } from '@angular/core';
 })
 
 export class BaseFormComponent {
-    categories: string[] = ["Flashcards", "Quiz", "Fill the sentence"];
-    selectedCategory: string;
+    categories: Category[];
+    selectedCategory: Category;
 
-    constructor() {
-
+    constructor(private http: HttpClient,
+        @Inject('BASE_URL') private baseUrl: string) {
+   
+        this.http.get<Category[]>(baseUrl+"api"+"/category").subscribe(result => {
+            this.categories = result;
+        }, error => console.error(error));
     }
 }
