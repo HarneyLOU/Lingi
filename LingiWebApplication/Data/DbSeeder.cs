@@ -1,6 +1,8 @@
 ﻿using LingiWebApplication.Data.Models;
+using LingiWebApplication.Data.Models.Tests;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +18,196 @@ namespace LingiWebApplication.Data
             {
                 CreateUsers(dbContext, roleManager, userManager).GetAwaiter().GetResult();
             }
+            if (!dbContext.Categories.Any())
+            {
+                SeedCategories(dbContext);
+            }
+            if (!dbContext.Languages.Any())
+            {
+                SeedLanguages(dbContext);
+            }
+            if (!dbContext.Levels.Any())
+            {
+                SeedLevels(dbContext);
+            }
+            if (!dbContext.Tests.Any())
+            {
+                SeedExampleTests(dbContext);
+            }
+            if (!dbContext.Flashcards.Any())
+            {
+                SeedExampleFlashcards(dbContext);
+            }
+        }
+
+        private static void SeedCategories(ApplicationDbContext dbContext)
+        {
+            dbContext.Categories.AddRange(new List<Category>()
+            { 
+                new Category()
+                {
+                    Id = 1,
+                    Name = "Flashcards",
+                    Description = "Learn new words"
+                },
+                new Category()
+                {
+                    Id = 2,
+                    Name = "Quiz",
+                    Description = "Choose the correct answer"
+                },
+                new Category()
+                {
+                    Id = 3,
+                    Name = "Fill the gap",
+                    Description = "Check your knowledge"
+                },
+                new Category()
+                {
+                    Id = 4,
+                    Name = "Reading",
+                    Description = "Read and answer the questions"
+                }
+            });
+            dbContext.SaveChanges();
+        }
+
+        private static void SeedLanguages(ApplicationDbContext dbContext)
+        {
+            dbContext.Languages.AddRange(new List<Language>()
+            {
+                new Language()
+                {
+                    Id = 1,
+                    Name = "Polish-English",
+                    Description = "Polish-English",
+                },
+                new Language()
+                {
+                    Id = 2,
+                    Name = "Polish-Russian",
+                    Description = "Polish-Russian",
+                },
+                new Language()
+                {
+                    Id = 3,
+                    Name = "Polish-Spanish",
+                    Description = "Polish-Spanish",
+                },
+
+            });
+            dbContext.SaveChanges();
+        }
+
+        private static void SeedLevels(ApplicationDbContext dbContext)
+        {
+            dbContext.Levels.AddRange(new List<Level>()
+            {
+                new Level()
+                {
+                    Id = 1,
+                    Name = "Beginner",
+                    Description = "Beginner",
+                },
+                new Level()
+                {
+                    Id = 2,
+                    Name = "Elementary",
+                    Description = "Elementary ",
+                },
+                new Level()
+                {
+                    Id = 3,
+                    Name = "Low intermediate",
+                    Description = "Low intermediate",
+                },
+                new Level()
+                {
+                    Id = 4,
+                    Name = "High intermediate",
+                    Description = "High intermediate",
+                },
+                new Level()
+                {
+                    Id = 5,
+                    Name = "Advanced",
+                    Description = "Advanced",
+                },
+            });
+            dbContext.SaveChanges();
+        }
+        private static void SeedExampleTests(ApplicationDbContext dbContext)
+        {
+            dbContext.Tests.AddRange(new List<Test>()
+            {
+                new Test()
+                {
+                    Id = 1,
+                    Description = "Animals",
+                    User = dbContext.Users.FirstOrDefault(),
+                    Language = dbContext.Languages.Where(x => x.Id == 1).FirstOrDefault(),
+                    Category = dbContext.Categories.Where(x => x.Id == 1).FirstOrDefault(),
+                    Level = dbContext.Levels.Where(x => x.Id == 1).FirstOrDefault(),
+                    LastModifiedDate = DateTime.Now,
+                    CreatedDate = DateTime.Now.AddDays(-15),
+                },
+                new Test()
+                {
+                    Id = 2,
+                    Description = "Useful verbs",
+                    User = dbContext.Users.FirstOrDefault(),
+                    Language = dbContext.Languages.Where(x => x.Id == 1).FirstOrDefault(),
+                    Category = dbContext.Categories.Where(x => x.Id == 1).FirstOrDefault(),
+                    Level = dbContext.Levels.Where(x => x.Id == 2).FirstOrDefault(),
+                    LastModifiedDate = DateTime.Now,
+                    CreatedDate = DateTime.Now.AddDays(-8),
+                }
+            });
+            dbContext.SaveChanges();
+        }
+
+        private static void SeedExampleFlashcards(ApplicationDbContext dbContext)
+        {
+            dbContext.Flashcards.AddRange(new List<Flashcard>()
+            {
+                new Flashcard()
+                {
+                    Id = 1,
+                    TestId = 1,
+                    Word1 = "Cześć",
+                    Word2 = "Hello",
+                    Example1 = "Cześć kolego",
+                    Example2 = "Hello mate",
+                },
+                new Flashcard()
+                {
+                    Id = 2,
+                    TestId = 1,
+                    Word1 = "Do widzenia",
+                    Word2 = "Goodbye",
+                    Example1 = "",
+                    Example2 = "",
+                },
+                new Flashcard()
+                {
+                    Id = 3,
+                    TestId = 1,
+                    Word1 = "Kot",
+                    Word2 = "Cat",
+                    Example1 = "Mam kota",
+                    Example2 = "I have a cat",
+                },
+                new Flashcard()
+                {
+                    Id = 4,
+                    TestId = 2,
+                    Word1 = "Dom",
+                    Word2 = "House",
+                    Example1 = "To bardzo duży dom",
+                    Example2 = "This is a very big house",
+                }
+            });
+            dbContext.SaveChanges();
         }
 
         private static async Task CreateUsers(ApplicationDbContext dbContext,

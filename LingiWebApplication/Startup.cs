@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
+using AutoMapper;
 
 namespace LingiWebApplication
 {
@@ -72,6 +73,8 @@ namespace LingiWebApplication
                 };
                 cfg.IncludeErrorDetails = true;
             });
+
+            services.AddAutoMapper(typeof(WebMappingProfile));
 
             services.AddSpaStaticFiles(configuration =>
                 {

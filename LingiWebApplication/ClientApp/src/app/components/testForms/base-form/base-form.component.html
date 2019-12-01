@@ -1,12 +1,15 @@
 <div class="main-card">
   <mat-card class="my-card">
-      <mat-form-field class="full-width">
-        <mat-select [(ngModel)]="selectedCategory" name="category" placeholder="Select the category">
-          <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <mat-card-header>
+      <mat-card-title>CREATE TEST</mat-card-title>
+    </mat-card-header>
+    <mat-form-field class="full-width">
+      <mat-select [(ngModel)]="selectedCategory" name="category" placeholder="Select the category">
+        <mat-option *ngFor="let category of categories" [value]="category">{{category.Name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
     <div>
-      <app-flashcard-create *ngIf="selectedCategory == 'Flashcards' "></app-flashcard-create>
+      <app-flashcard-create *ngIf="selectedCategory?.Name === 'Flashcards' "></app-flashcard-create>
     </div>
   </mat-card>
 </div>

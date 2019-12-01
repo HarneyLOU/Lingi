@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace LingiWebApplication.Data.Models
@@ -11,7 +12,7 @@ namespace LingiWebApplication.Data.Models
 
         }
 
-        //public virtual List<Tests> Tests { get; set; }
+        public virtual List<Test> Tests { get; set; }
 
         public string DisplayName { get; set; }
 

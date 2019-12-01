@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using LingiWebApplication.Data;
 using LingiWebApplication.Data.Models;
-using LingiWebApplication.ViewModels.Tests;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
-namespace LingiWebApplication.Controllers.TestControllers
+namespace LingiWebApplication.Controllers
 {
-    public class FlashcardController : BaseApiController
+    public class CategoryController : BaseApiController
     {
-        public FlashcardController(
+        public CategoryController(
             ApplicationDbContext context,
             RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager,
@@ -26,15 +25,13 @@ namespace LingiWebApplication.Controllers.TestControllers
             )
             : base(context, roleManager, userManager, configuration, mapper) { }
 
-        //[HttpGet("{id}")]
-        //public IActionResult Get(int id)
-        //{
-        //    var options = new JsonSerializerOptions
-        //    {
-        //        WriteIndented = true,
-        //        Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
-        //    };
-        //    return new JsonResult();
-        //}
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            List<Category> categories = DbContext.Categories.ToList();
+
+            return new JsonResult(categories, JsonSettings);
+        }
     }
 }
