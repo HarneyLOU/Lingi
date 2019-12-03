@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { TestService } from '../../services/test.service';
+import { TestService } from '../test.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
