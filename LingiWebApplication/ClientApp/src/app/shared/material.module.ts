@@ -10,7 +10,7 @@ import {
     MatIconModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatPaginatorModule
+    MatPaginatorModule,
 } from '@angular/material';
 
 @NgModule({
@@ -38,7 +38,7 @@ import {
         MatIconModule,
         MatProgressSpinnerModule,
         MatSelectModule,
-        MatPaginatorModule
+        MatPaginatorModule,
     ]
 })
 export class MaterialModule { }

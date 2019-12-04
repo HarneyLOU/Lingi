@@ -1,6 +1,12 @@
-<form class="my-form" *ngIf="!addingWordPanel">
+<form class="my-form" style="min-width: 100%;" *ngIf="!addingWordPanel">
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Title" value="Sushi" name="flashcardTitle" [(ngModel)]="flashcardTitle"/>
+    {{flashcardTitle}}
+  </mat-form-field>
+
   <mat-form-field class="full-width">
     <input matInput placeholder="Keywords" value="Sushi" name="flashcardKeywords" [(ngModel)]="flashcardKeywords"/>
+    {{flashcardKeywords}}
   </mat-form-field>
 
   <mat-form-field class="full-width">
@@ -16,17 +22,23 @@
       <mat-card-title>Adding words to new FlashCard</mat-card-title>
     </mat-card-header>
     <mat-card-content class="full-width">
-        <div *ngFor="let item of words; let i=index">
-        <mat-form-field>
-            <input matInput value="item_{{i}}" id="input_id_{{i}}" placeholder="#{{i}}" />
+        <div class="full-width" *ngFor="let item of words; let i=index">
+        <button mat-button (click)="deleteWord(i)" class="deleteButton">x</button>
+        <mat-form-field style="margin-left:20px;width:15%">
+            <input class="inputWord" matInput [(ngModel)]="wordsW[i]" placeholder="Word" />
         </mat-form-field>
-        <mat-form-field>
-            <input matInput value="item_translated_{{i}}" id="input_translated_id_{{i}}" placeholder="Translated word" />
+        <mat-form-field style="margin-left:20px;width:15%">
+            <input class="inputWord" matInput [(ngModel)]="translatedWords[i]" placeholder="Translated word" />
         </mat-form-field>
+        <mat-form-field style="margin-left:20px;width:25%">
+          <input class="inputWord" matInput [(ngModel)]="sentence[i]" placeholder="Sentence" />
+      </mat-form-field>
+      <mat-form-field style="margin-left:20px;width:25%">
+          <input class="inputWord" matInput [(ngModel)]="translatedSentence[i]" placeholder="Translated sentence" />
+      </mat-form-field>
       </div>
       <button mat-button (click)="hideAddingWordPanel()">Back</button> 
       <button mat-button (click)="addNewWord()">Add more</button>
-      <button mat-button (click)="deleteWord()">Delete</button>
     </mat-card-content>   
   </mat-card>
 </div>
