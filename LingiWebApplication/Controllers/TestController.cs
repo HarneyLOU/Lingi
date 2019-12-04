@@ -27,8 +27,8 @@ namespace LingiWebApplication.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            Test test = DbContext.Tests.Include(x => x.Category).Where(x => x.Id == id).FirstOrDefault();
-            int categoryId = test.Category.Id;
+            Test test = DbContext.Tests.Include(x => x.Type).Where(x => x.Id == id).FirstOrDefault();
+            int categoryId = test.Type.Id;
 
             switch (categoryId)
             {
@@ -44,9 +44,8 @@ namespace LingiWebApplication.Controllers
         public IActionResult GetAll()
         {
             List<Test> tests = DbContext.Tests
-                .Include(x => x.Category)
+                .Include(x => x.Type)
                 .Include(x => x.Level)
-                .Take(10)
                 .ToList();
 
             var viewTests = Mapper.Map<List<TestViewModel>>(tests);

@@ -10,7 +10,8 @@ import {
     MatIconModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
 } from '@angular/material';
 
 @NgModule({
@@ -25,7 +26,8 @@ import {
         MatIconModule,
         MatProgressSpinnerModule,
         MatSelectModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatSortModule
     ],
     exports: [
         MatToolbarModule,
@@ -38,7 +40,8 @@ import {
         MatIconModule,
         MatProgressSpinnerModule,
         MatSelectModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatSortModule
     ]
 })
 export class MaterialModule { }

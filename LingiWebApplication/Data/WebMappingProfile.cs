@@ -13,8 +13,8 @@ namespace LingiWebApplication.Data
         public WebMappingProfile()
         {
             CreateMap<Test, TestViewModel>()
-                .ForMember(destination => destination.Category,
-                opts => opts.MapFrom(source => source.Category.Name))
+                .ForMember(destination => destination.Type,
+                opts => opts.MapFrom(source => source.Type.Name))
                 .ForMember(destination => destination.Level,
                 opts => opts.MapFrom(source => source.Level.Name));
         }

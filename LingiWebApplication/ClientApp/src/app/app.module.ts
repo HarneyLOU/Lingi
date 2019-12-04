@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { TestsModule } from './tests/tests.module';
 import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared/shared.module';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     TestsModule,
-    AuthModule
+    AuthModule,
+    SharedModule
   ],
   bootstrap: [AppComponent]
 })

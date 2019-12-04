@@ -8,14 +8,14 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class BaseFormComponent {
-    categories: Category[];
-    selectedCategory: Category;
+    //categories: Category[];
+    //selectedCategory: Category;
 
-    constructor(private http: HttpClient,
-        @Inject('BASE_URL') private baseUrl: string) {
+    //constructor(private http: HttpClient,
+    //    @Inject('BASE_URL') private baseUrl: string) {
    
-        this.http.get<Category[]>(baseUrl+"api"+"/category").subscribe(result => {
-            this.categories = result;
-        }, error => console.error(error));
-    }
+    //    this.http.get<Category[]>(baseUrl+"api"+"/category").subscribe(result => {
+    //        this.categories = result;
+    //    }, error => console.error(error));
+    //}
 }

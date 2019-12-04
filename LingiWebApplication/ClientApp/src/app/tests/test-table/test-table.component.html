@@ -1,41 +1,55 @@
 
-  <div class="main-card">
-    <mat-card class="my-card">
-      <mat-card-header>
-        <mat-card-title>SELECT TEST TO SOLVE</mat-card-title>
-      </mat-card-header>
-      <mat-form-field class="full-width">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-      </mat-form-field>
-        <table mat-table [dataSource]="dataSource">
+<div class="main-card">
+  <mat-card class="my-card">
+    <mat-card-header>
+      <mat-card-title>TESTS</mat-card-title>
+    </mat-card-header>
 
-          <!-- Position Column -->
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
-          </ng-container>
+    <mat-form-field class="space">
+      <input matInput (keyup)="applyFilter($event.target.value, 'all')" placeholder="Filter">
+    </mat-form-field>
 
-          <!-- Name Column -->
-          <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.Description}} </td>
-          </ng-container>
+    <mat-form-field class="space">
+      <mat-label>Test's type</mat-label>
+      <mat-select (selectionChange)="applyFilter($event.value, 'type')">
+        <mat-option value="all">
+          All
+        </mat-option>
+        <mat-option *ngFor="let type of types" [value]="type.Name">
+          {{type.Name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-          <!-- Weight Column -->
-          <ng-container matColumnDef="category">
-            <th mat-header-cell *matHeaderCellDef> Weight </th>
-            <td mat-cell *matCellDef="let element"> {{element.Category}} </td>
-          </ng-container>
+    <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
 
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="level">
-            <th mat-header-cell *matHeaderCellDef> Symbol </th>
-            <td mat-cell *matCellDef="let element"> {{element.Level}} </td>
-          </ng-container>
+      <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
+        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+      </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-    </mat-card>
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+          <div class="element-detail"
+               [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <div class="element-button">
+              <button mat-raised-button color="primary" (click)="onSelect(element)">Solve</button>
+            </div>
+            <div class="element-description">
+              {{element.Description}}
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+          class="element-row"
+          [class.expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons></mat-paginator>
+  </mat-card>
 </div>

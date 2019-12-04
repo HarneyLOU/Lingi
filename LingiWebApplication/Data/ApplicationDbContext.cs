@@ -17,32 +17,30 @@ namespace LingiWebApplication.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ApplicationUser>().ToTable("Users");
+            modelBuilder.Entity<ApplicationUser>().ToTable("AppUsers");
             modelBuilder.Entity<ApplicationUser>().HasMany(u => u.Tests).WithOne(i => i.User);
 
-            modelBuilder.Entity<Category>().ToTable("Categories");
-            modelBuilder.Entity<Category>().Property(i => i.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Category>().HasMany(c => c.Tests).WithOne(e => e.Category);
+            modelBuilder.Entity<Type>().ToTable("AppTypes");
+            modelBuilder.Entity<Type>().Property(i => i.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Type>().HasMany(c => c.Tests).WithOne(e => e.Type);
 
-            modelBuilder.Entity<Level>().ToTable("Levels");
+            modelBuilder.Entity<Level>().ToTable("AppLevels");
             modelBuilder.Entity<Level>().Property(i => i.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Level>().HasMany(c => c.Tests).WithOne(e => e.Level);
 
-            modelBuilder.Entity<Language>().ToTable("Languages");
+            modelBuilder.Entity<Language>().ToTable("AppLanguages");
             modelBuilder.Entity<Language>().Property(i => i.Id).ValueGeneratedOnAdd();
-            //modelBuilder.Entity<Language>().HasMany(c => c.Tests).WithOne(e => e.Language);
+            modelBuilder.Entity<Language>().HasMany(c => c.Tests).WithOne(e => e.Language);
 
-            modelBuilder.Entity<Test>().ToTable("Tests");
+            modelBuilder.Entity<Test>().ToTable("AppTests");
             modelBuilder.Entity<Test>().Property(i => i.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Test>().HasOne(c => c.Language).WithMany(e => e.Tests);
 
-            modelBuilder.Entity<Flashcard>().ToTable("Flashcards");
+            modelBuilder.Entity<Flashcard>().ToTable("AppFlashcards");
             modelBuilder.Entity<Flashcard>().Property(i => i.Id).ValueGeneratedOnAdd();
-            //chyba trzeba zamienić na test hasmany flashcards
         }
 
-        public DbSet<ApplicationUser> Users { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Type> Types { get; set; }
         public DbSet<Level> Levels { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Test> Tests { get; set; }
