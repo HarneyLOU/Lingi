@@ -40,7 +40,7 @@ export class TestTableComponent implements OnInit{
     ngOnInit() {
         this.testService.getTests().subscribe(result => {
             this.dataSource.data = result
-            this.tests = result
+            //this.tests = result
         }, error => console.error(error));
 
         this.testService.getTypes().subscribe(result => {
@@ -79,7 +79,11 @@ export class TestTableComponent implements OnInit{
     }
 
     onSelect(test: any) {
-        console.log("Wybrano test o id " + test.Id);
-        this.router.navigate(["tests", test.Id]);
+        switch (test.Type) {
+            case "Flashcards":
+                //this.router.navigate(["flashcard", test.Id], { state: { desc: test.Description }});
+                this.router.navigate(["flashcard", test.Id]);
+                break;
+        }
     }
 }

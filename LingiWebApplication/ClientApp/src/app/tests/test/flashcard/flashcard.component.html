@@ -1,0 +1,45 @@
+<div class="my-card">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div class="left">
+        <mat-card-title>Flashcard</mat-card-title>
+        <mat-card-subtitle>{{test?.Description}}</mat-card-subtitle>
+      </div>
+        <div class="right">
+          <button mat-fab color="primary" (click)="onSelect()">Rules</button>
+        </div>
+    
+    </mat-card-header>
+    <div *ngIf="started">
+      <mat-card>{{iterator+1}}/{{size}}</mat-card>
+      <app-single-flashcard #singleFlashcard [flashcard]="flashcard" (checked)="onChecked($event)"></app-single-flashcard>
+      <div class="buttons">
+        <div style="position: absolute; bottom: 15px; left: 20px; width: 100px; text-align:left;">
+          <button mat-flat-button [disabled]="!ifChecked" color="warn" (click)="onForgotten();singleFlashcard.clicked()">No idea</button>
+        </div>
+        <div style="position: absolute; bottom: 15px; right: 20px; width: 100px; text-align:right;">
+          <button mat-flat-button [disabled]="!ifChecked" color="accent" (click)="onRemembered();singleFlashcard.clicked()">I remember</button>
+        </div>
+      </div>
+
+    </div>
+      <div *ngIf="!started">
+        <mat-card-content>
+          <h3>
+            Learn new words thanks to this set of flashcards
+          </h3>
+          <ul>
+            <li>Try to recall the translation of the given word</li>
+            <li>Check the translation</li>
+            <li>Then choose the true answer</li>
+            <li>If you don't know the translation, you will face this flashcard again, until you have learnt the word</li>
+            <li>If you were able to recall the translation, the word is signed as learnt, good job</li>
+          </ul>
+        </mat-card-content>
+        <div class="center">
+          <button mat-flat-button color="primary" (click)="onSelect()">Let's go</button>
+        </div>
+      </div>
+</mat-card>
+</div>
+

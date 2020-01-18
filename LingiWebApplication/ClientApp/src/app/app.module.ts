@@ -13,7 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'test', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ]
 

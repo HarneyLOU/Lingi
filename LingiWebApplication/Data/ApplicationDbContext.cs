@@ -10,7 +10,7 @@ namespace LingiWebApplication.Data
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
-
+  
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -34,7 +34,7 @@ namespace LingiWebApplication.Data
 
             modelBuilder.Entity<Test>().ToTable("AppTests");
             modelBuilder.Entity<Test>().Property(i => i.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Test>().HasOne(c => c.Language).WithMany(e => e.Tests);
+            //modelBuilder.Entity<Test>().HasOne(c => c.Language).WithMany(e => e.Tests);
 
             modelBuilder.Entity<Flashcard>().ToTable("AppFlashcards");
             modelBuilder.Entity<Flashcard>().Property(i => i.Id).ValueGeneratedOnAdd();

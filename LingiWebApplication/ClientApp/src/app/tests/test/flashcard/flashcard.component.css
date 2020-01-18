@@ -1,0 +1,39 @@
+.my-card {
+  padding-top: 100px;
+  min-width: 150px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.flashcard-avatar {
+  object-fit: cover; /*this makes the image in src fit to the size specified below*/
+  width: 64px;
+  height: 64px;
+  border-radius: 0;
+}
+
+.center {
+  display: block;
+  text-align: center
+}
+
+.center button {
+  width: 150px;
+  height: 40px;
+  font-size: 24px;
+}
+
+.right {
+  display: block;
+  text-align: right;
+}
+
+.left {
+  width: 350px;
+  word-wrap: break-word;
+}
+
+.buttons {
+  font-size: 20px;
+  margin-top: 50px;
+}
