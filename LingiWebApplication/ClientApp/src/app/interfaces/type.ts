@@ -1,4 +1,4 @@
-interface Category {
+interface Type {
     id: number;
     name: string;
     description: string;

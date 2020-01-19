@@ -18,7 +18,7 @@ namespace LingiWebApplication.Data
             {
                 CreateUsers(dbContext, roleManager, userManager).GetAwaiter().GetResult();
             }
-            if (!dbContext.Categories.Any())
+            if (!dbContext.Types.Any())
             {
                 SeedCategories(dbContext);
             }
@@ -42,27 +42,27 @@ namespace LingiWebApplication.Data
 
         private static void SeedCategories(ApplicationDbContext dbContext)
         {
-            dbContext.Categories.AddRange(new List<Category>()
+            dbContext.Types.AddRange(new List<Models.Type>()
             { 
-                new Category()
+                new Models.Type()
                 {
                     Id = 1,
                     Name = "Flashcards",
                     Description = "Learn new words"
                 },
-                new Category()
+                new Models.Type()
                 {
                     Id = 2,
                     Name = "Quiz",
                     Description = "Choose the correct answer"
                 },
-                new Category()
+                new Models.Type()
                 {
                     Id = 3,
                     Name = "Fill the gap",
                     Description = "Check your knowledge"
                 },
-                new Category()
+                new Models.Type()
                 {
                     Id = 4,
                     Name = "Reading",
@@ -137,32 +137,39 @@ namespace LingiWebApplication.Data
             dbContext.SaveChanges();
         }
         private static void SeedExampleTests(ApplicationDbContext dbContext)
-        {
-            dbContext.Tests.AddRange(new List<Test>()
+        {  
+            string[] tags = new string[12]{ "Animals", "Home", "Work", "University", "IT", "WAT", "Travelling", "Different", "Countries", "Feelings", "Expressions", "Useful" };
+            
+            Test test = new Test()
             {
-                new Test()
+                Description = "Useful verbs for beginners",
+                User = dbContext.Users.FirstOrDefault(),
+                Language = dbContext.Languages.Where(x => x.Id == 1).FirstOrDefault(),
+                LastModifiedDate = DateTime.Now,
+                CreatedDate = DateTime.Now.AddDays(-8),
+            };
+            Random r = new Random();
+            for (int i = 1; i <= 100; i++)
+            {
+                Test tempTest = test;
+                int j = 0;
+                string testTags = "";
+                do
                 {
-                    Id = 1,
-                    Description = "Animals",
-                    User = dbContext.Users.FirstOrDefault(),
-                    Language = dbContext.Languages.Where(x => x.Id == 1).FirstOrDefault(),
-                    Category = dbContext.Categories.Where(x => x.Id == 1).FirstOrDefault(),
-                    Level = dbContext.Levels.Where(x => x.Id == 1).FirstOrDefault(),
-                    LastModifiedDate = DateTime.Now,
-                    CreatedDate = DateTime.Now.AddDays(-15),
-                },
-                new Test()
-                {
-                    Id = 2,
-                    Description = "Useful verbs",
-                    User = dbContext.Users.FirstOrDefault(),
-                    Language = dbContext.Languages.Where(x => x.Id == 1).FirstOrDefault(),
-                    Category = dbContext.Categories.Where(x => x.Id == 1).FirstOrDefault(),
-                    Level = dbContext.Levels.Where(x => x.Id == 2).FirstOrDefault(),
-                    LastModifiedDate = DateTime.Now,
-                    CreatedDate = DateTime.Now.AddDays(-8),
+                    testTags += tags[r.Next(12)] + "|";
+                    j++;
                 }
-            });
+                while (r.Next(2) != 0 && j < 3);
+                test.Tags = testTags.Remove(testTags.Length - 1);
+                test.Id = i;
+                int l = r.Next(5) + 1;
+                test.Level = dbContext.Levels.Where(x => x.Id == l).FirstOrDefault();
+                int t = r.Next(3) + 1;
+                test.Type = dbContext.Types.Where(x => x.Id == t).FirstOrDefault();
+                test.Rate = Math.Round(r.NextDouble() * 5, 2);
+                dbContext.Tests.Add(test);
+                dbContext.SaveChanges();
+            }
             dbContext.SaveChanges();
         }
 

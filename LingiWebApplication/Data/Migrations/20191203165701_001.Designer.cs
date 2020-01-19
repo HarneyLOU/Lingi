@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LingiWebApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191201120833_001")]
+    [Migration("20191203165701_001")]
     partial class _001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,25 +95,7 @@ namespace LingiWebApplication.Data.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex");
 
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("LingiWebApplication.Data.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
+                    b.ToTable("AppUsers");
                 });
 
             modelBuilder.Entity("LingiWebApplication.Data.Models.Language", b =>
@@ -131,7 +113,7 @@ namespace LingiWebApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages");
+                    b.ToTable("AppLanguages");
                 });
 
             modelBuilder.Entity("LingiWebApplication.Data.Models.Level", b =>
@@ -149,7 +131,7 @@ namespace LingiWebApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Levels");
+                    b.ToTable("AppLevels");
                 });
 
             modelBuilder.Entity("LingiWebApplication.Data.Models.Test", b =>
@@ -179,6 +161,9 @@ namespace LingiWebApplication.Data.Migrations
                     b.Property<double>("Rate")
                         .HasColumnType("double");
 
+                    b.Property<string>("Tags")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
@@ -192,7 +177,7 @@ namespace LingiWebApplication.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tests");
+                    b.ToTable("AppTests");
                 });
 
             modelBuilder.Entity("LingiWebApplication.Data.Models.Tests.Flashcard", b =>
@@ -220,7 +205,25 @@ namespace LingiWebApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Flashcards");
+                    b.ToTable("AppFlashcards");
+                });
+
+            modelBuilder.Entity("LingiWebApplication.Data.Models.Type", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -353,7 +356,7 @@ namespace LingiWebApplication.Data.Migrations
 
             modelBuilder.Entity("LingiWebApplication.Data.Models.Test", b =>
                 {
-                    b.HasOne("LingiWebApplication.Data.Models.Category", "Category")
+                    b.HasOne("LingiWebApplication.Data.Models.Type", "Type")
                         .WithMany("Tests")
                         .HasForeignKey("CategoryId");
 

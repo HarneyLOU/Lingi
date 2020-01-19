@@ -1,0 +1,21 @@
+.flash {
+  text-align: center;
+  height: 100px;
+}
+
+.word {
+  margin-top: 20px;
+  font-size: 28px;
+  font-family: Arial;
+  margin-bottom: 10px;
+}
+
+.example {
+  font-style: italic;
+  font-size: 20px;
+}
+
+.center {
+  display: block;
+  text-align: center
+}

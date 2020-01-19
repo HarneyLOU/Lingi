@@ -7,6 +7,7 @@ using LingiWebApplication.Data;
 using LingiWebApplication.Data.Models;
 using LingiWebApplication.Data.Models.Tests;
 using LingiWebApplication.ViewModels;
+using LingiWebApplication.ViewModels.Tests;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,26 +28,18 @@ namespace LingiWebApplication.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            Test test = DbContext.Tests.Include(x => x.Category).Where(x => x.Id == id).FirstOrDefault();
-            int categoryId = test.Category.Id;
-
-            switch (categoryId)
-            {
-                case 1:
-                    List<Flashcard> tests = DbContext.Flashcards.Where(x => x.TestId == test.Id).ToList();
-                    return new JsonResult(tests, JsonSettings);
-                default:
-                    return new NotFoundResult();
-            }
+            Test test = DbContext.Tests.Where(x => x.Id == id).FirstOrDefault();
+            var viewTest = Mapper.Map<TestViewModel>(test);
+            return new JsonResult(viewTest, JsonSettings);
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
             List<Test> tests = DbContext.Tests
-                .Include(x => x.Category)
+                .Include(x => x.Type)
                 .Include(x => x.Level)
-                .Take(10)
+                .AsNoTracking()
                 .ToList();
 
             var viewTests = Mapper.Map<List<TestViewModel>>(tests);

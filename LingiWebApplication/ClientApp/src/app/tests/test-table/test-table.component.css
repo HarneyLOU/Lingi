@@ -12,3 +12,44 @@ table {
 .full-width {
   width: 100%;
 }
+
+.space {
+  margin-right: 20px;
+}
+
+tr.element-row:not(.expanded-row):hover .mat-cell {
+  background: #852EBA;
+  color: white;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.element-description {
+  padding: 16px;
+  margin-right: 10px;
+  font-size: large;
+  font-weight: lighter;
+}
+
+.element-button {
+  padding: 16px;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
