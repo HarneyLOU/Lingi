@@ -166,7 +166,7 @@ namespace LingiWebApplication.Data
                 test.Level = dbContext.Levels.Where(x => x.Id == l).FirstOrDefault();
                 int t = r.Next(3) + 1;
                 test.Type = dbContext.Types.Where(x => x.Id == t).FirstOrDefault();
-                test.Rate = Math.Round(r.NextDouble() * 10, 2);
+                test.Rate = Math.Round(r.NextDouble() * 5, 2);
                 dbContext.Tests.Add(test);
                 dbContext.SaveChanges();
             }

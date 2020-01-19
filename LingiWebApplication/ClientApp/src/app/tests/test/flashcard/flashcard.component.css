@@ -1,5 +1,5 @@
 .my-card {
-  padding-top: 100px;
+  padding-top: 50px;
   min-width: 150px;
   max-width: 500px;
   margin: auto;
@@ -12,7 +12,13 @@
   border-radius: 0;
 }
 
+.progress {
+  margin-top: 20px;
+  margin-bottom: 70px;
+}
+
 .center {
+  margin-top: 50px;
   display: block;
   text-align: center
 }
@@ -36,4 +42,9 @@
 .buttons {
   font-size: 20px;
   margin-top: 50px;
+}
+
+.list {
+  text-align: center;
+  line-height: 2px;
 }

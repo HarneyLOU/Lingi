@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestService } from '../../test.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RateComponent } from '../../rate/rate.component';
 
 @Component({
     selector: 'app-flashcard',
@@ -17,13 +19,23 @@ export class FlashcardComponent implements OnInit{
     flashcard: Flashcard;
 
     description: string;
-    started: boolean = false;
     iterator: number = 0;
     size: number;
+    totalSize: number;
 
+    ifStarted: boolean = false;
     ifChecked: boolean = false;
+    ifWon: boolean = false;
+    ifRated: boolean = false;
 
-    constructor(private activatedRoute: ActivatedRoute, private testService: TestService, private router: Router) {
+    mode = 'determinate';
+    value = 0;
+
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private testService: TestService,
+        private router: Router,
+        public dialog: MatDialog) {
  
     }
 
@@ -33,6 +45,7 @@ export class FlashcardComponent implements OnInit{
             this.flashcards = result;
             this.flashcard = this.flashcards[0];
             this.size = this.flashcards.length;
+            this.totalSize = this.size;
         }, error => console.error(error));
 
         this.testService.getTest(id).subscribe(result => {
@@ -41,7 +54,7 @@ export class FlashcardComponent implements OnInit{
     }
 
     onSelect() {
-        this.started = !this.started;
+        this.ifStarted = !this.ifStarted;
     }
 
     onChecked(ifChecked: boolean) {
@@ -59,6 +72,7 @@ export class FlashcardComponent implements OnInit{
         }
         this.flashcard = this.flashcards[this.iterator];
         this.ifChecked = false;
+        this.value = (this.flashcardsLearnt.length / this.totalSize) * 100;
     }
 
     onRemembered() {
@@ -69,8 +83,32 @@ export class FlashcardComponent implements OnInit{
             this.flashcards = this.flashcardsToLearn;
             this.flashcardsToLearn = [];
             this.size = this.flashcards.length;
+            if (this.size == 0) {
+                this.finished();
+            }
         }
         this.flashcard = this.flashcards[this.iterator];
         this.ifChecked = false;
+        this.value = (this.flashcardsLearnt.length / this.totalSize) * 100;
+    }
+
+    finished() {
+        this.ifWon = true;
+    }
+
+    onFinish() {
+        this.router.navigate(["tests"]);
+    }
+
+    openRate(): void {
+        const dialogRef = this.dialog.open(RateComponent, {
+            width: '250px',
+            data: { test: this.test }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            this.ifRated = true;
+            console.log('The dialog was closed');
+        });
     }
 }

@@ -5,41 +5,77 @@
         <mat-card-title>Flashcard</mat-card-title>
         <mat-card-subtitle>{{test?.Description}}</mat-card-subtitle>
       </div>
-        <div class="right">
+      <div class="right">
+        <div *ngIf="!ifWon && ifStarted; else elseRate">
           <button mat-fab color="primary" (click)="onSelect()">Rules</button>
         </div>
-    
-    </mat-card-header>
-    <div *ngIf="started">
-      <mat-card>{{iterator+1}}/{{size}}</mat-card>
-      <app-single-flashcard #singleFlashcard [flashcard]="flashcard" (checked)="onChecked($event)"></app-single-flashcard>
-      <div class="buttons">
-        <div style="position: absolute; bottom: 15px; left: 20px; width: 100px; text-align:left;">
-          <button mat-flat-button [disabled]="!ifChecked" color="warn" (click)="onForgotten();singleFlashcard.clicked()">No idea</button>
-        </div>
-        <div style="position: absolute; bottom: 15px; right: 20px; width: 100px; text-align:right;">
-          <button mat-flat-button [disabled]="!ifChecked" color="accent" (click)="onRemembered();singleFlashcard.clicked()">I remember</button>
-        </div>
+        <ng-template #elseRate>
+          <div *ngIf="ifWon">
+            <button mat-fab color="accent" [disabled]="ifRated" (click)="openRate()">Rate</button>
+          </div>
+        </ng-template>
       </div>
 
-    </div>
-      <div *ngIf="!started">
+</mat-card-header>
+    <div *ngIf="ifStarted">
+      <mat-card class="progress">
         <mat-card-content>
-          <h3>
-            Learn new words thanks to this set of flashcards
-          </h3>
-          <ul>
-            <li>Try to recall the translation of the given word</li>
-            <li>Check the translation</li>
-            <li>Then choose the true answer</li>
-            <li>If you don't know the translation, you will face this flashcard again, until you have learnt the word</li>
-            <li>If you were able to recall the translation, the word is signed as learnt, good job</li>
-          </ul>
+          <div *ngIf="!ifWon; else elseBlock">
+            <h2 class="example-h2">Current progress: {{iterator+1}}/{{size}}</h2>
+          </div>
+          <ng-template #elseBlock>
+            <h2>Well done!</h2>
+          </ng-template>
+
+          <section class="example-section">
+            <mat-progress-bar class="example-margin"
+                              [color]="ifWon ? 'accent' : 'primary'"
+                              [mode]="mode"
+                              [value]="value">
+            </mat-progress-bar>
+          </section>
         </mat-card-content>
-        <div class="center">
-          <button mat-flat-button color="primary" (click)="onSelect()">Let's go</button>
+      </mat-card>
+      <div *ngIf="!ifWon; else finished">
+        <app-single-flashcard #singleFlashcard [flashcard]="flashcard" (checked)="onChecked($event)"></app-single-flashcard>
+        <div class="buttons">
+          <div style="position: absolute; bottom: 15px; left: 20px; width: 100px; text-align:left;">
+            <button mat-flat-button [disabled]="!ifChecked" color="warn" (click)="onForgotten();singleFlashcard.clicked()">No idea</button>
+          </div>
+          <div style="position: absolute; bottom: 15px; right: 20px; width: 100px; text-align:right;">
+            <button mat-flat-button [disabled]="!ifChecked" color="accent" (click)="onRemembered();singleFlashcard.clicked()">I know</button>
+          </div>
         </div>
       </div>
-</mat-card>
+      <ng-template #finished>
+        <div class="list">
+          <h4 mat-subheader>Words you have learnt today:</h4>
+          <mat-list-item *ngFor="let flashcard of flashcardsLearnt">
+            <p>{{flashcard.Word1}} - {{flashcard.Word2}}</p>
+          </mat-list-item>
+          <div class="center">
+            <button mat-flat-button color="primary" (click)="onFinish()">Finish</button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+    <div *ngIf="!ifStarted">
+      <mat-card-content>
+        <h3>
+          Learn new words thanks to this set of flashcards
+        </h3>
+        <ul>
+          <li>Try to recall the translation of the given word</li>
+          <li>Check the translation</li>
+          <li>Then choose the true answer</li>
+          <li>If you don't know the translation, you will face this flashcard again, until you have learnt the word</li>
+          <li>If you were able to recall the translation, the word is signed as learnt, good job</li>
+        </ul>
+      </mat-card-content>
+      <div class="center">
+        <button mat-flat-button color="primary" (click)="onSelect()">Let's go</button>
+      </div>
+    </div>
+  </mat-card>
 </div>
 

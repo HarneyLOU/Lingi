@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Opinion</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Rate this test</mat-label>
+    <mat-select [(value)]="selected">
+      <mat-option>None</mat-option>
+      <mat-option value="5">Excellent</mat-option>
+      <mat-option value="4">Good</mat-option>
+      <mat-option value="3">Average</mat-option>
+      <mat-option value="2">Poor</mat-option>
+      <mat-option value="1">Terrible</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Rate</button>
+</div>

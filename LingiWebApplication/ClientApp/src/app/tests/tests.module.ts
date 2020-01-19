@@ -3,6 +3,7 @@ import { FlashcardCreateComponent } from './testForms/flashcard/flashcard-create
 import { BaseFormComponent } from './testForms/base-form/base-form.component';
 import { TestTableComponent } from './test-table/test-table.component';
 import { TestComponent } from './test/test.component';
+import { RateComponent } from './rate/rate.component';
 import { FlashcardComponent } from './test/flashcard/flashcard.component';
 import { SingleFlashcardComponent } from './test/flashcard/single-flashcard/single-flashcard.component';
 import { SharedModule } from '../shared/shared.module';
@@ -24,13 +25,17 @@ const routes = [
         TestTableComponent,
         TestComponent,
         FlashcardComponent,
-        SingleFlashcardComponent
+        SingleFlashcardComponent,
+        RateComponent
     ],
   imports: [
     SharedModule,
     RouterModule.forChild(routes)
-  ],
-  exports: [ TestTableComponent ],
-  providers: [ TestService ]
+    ],
+    entryComponents: [RateComponent],
+    exports: [
+        TestTableComponent,
+        ],
+    providers: [TestService]
 })
 export class TestsModule { }
