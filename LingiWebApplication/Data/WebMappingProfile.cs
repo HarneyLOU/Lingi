@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using LingiWebApplication.Data.Models;
+using LingiWebApplication.Data.Models.Tests;
 using LingiWebApplication.ViewModels;
+using LingiWebApplication.ViewModels.Tests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +15,13 @@ namespace LingiWebApplication.Data
         public WebMappingProfile()
         {
             CreateMap<Test, TestViewModel>()
-                .ForMember(destination => destination.Category,
-                opts => opts.MapFrom(source => source.Category.Name))
+                .ForMember(destination => destination.Type,
+                opts => opts.MapFrom(source => source.Type.Name))
                 .ForMember(destination => destination.Level,
                 opts => opts.MapFrom(source => source.Level.Name));
+
+            CreateMap<Flashcard, FlashcardViewModel>().ReverseMap();
+;
         }
     }
 }

@@ -9,35 +9,7 @@ namespace LingiWebApplication.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AspNetRoles",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Flashcards",
+                name: "AppFlashcards",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -50,11 +22,11 @@ namespace LingiWebApplication.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Flashcards", x => x.Id);
+                    table.PrimaryKey("PK_AppFlashcards", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Languages",
+                name: "AppLanguages",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -64,11 +36,11 @@ namespace LingiWebApplication.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Languages", x => x.Id);
+                    table.PrimaryKey("PK_AppLanguages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Levels",
+                name: "AppLevels",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -78,11 +50,25 @@ namespace LingiWebApplication.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Levels", x => x.Id);
+                    table.PrimaryKey("PK_AppLevels", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "AppTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppUsers",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -108,7 +94,127 @@ namespace LingiWebApplication.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_AppUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppTests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Tags = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
+                    LanguageId = table.Column<int>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: true),
+                    LevelId = table.Column<int>(nullable: true),
+                    Rate = table.Column<double>(nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppTests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppTests_AppTypes_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "AppTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AppTests_AppLanguages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "AppLanguages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AppTests_AppLevels_LevelId",
+                        column: x => x.LevelId,
+                        principalTable: "AppLevels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AppTests_AppUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: false),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserClaims_AppUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
+                    ProviderDisplayName = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserLogins_AppUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserTokens_AppUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -133,47 +239,6 @@ namespace LingiWebApplication.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<string>(nullable: false),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserClaims_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserLogins",
-                columns: table => new
-                {
-                    LoginProvider = table.Column<string>(nullable: false),
-                    ProviderKey = table.Column<string>(nullable: false),
-                    ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserLogins_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
@@ -190,76 +255,43 @@ namespace LingiWebApplication.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_Users_UserId",
+                        name: "FK_AspNetUserRoles_AppUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "AppUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "AspNetUserTokens",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    Value = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserTokens_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_AppTests_CategoryId",
+                table: "AppTests",
+                column: "CategoryId");
 
-            migrationBuilder.CreateTable(
-                name: "Tests",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
-                    LanguageId = table.Column<int>(nullable: true),
-                    CategoryId = table.Column<int>(nullable: true),
-                    LevelId = table.Column<int>(nullable: true),
-                    Rate = table.Column<double>(nullable: false),
-                    LastModifiedDate = table.Column<DateTime>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tests", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tests_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Tests_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Tests_Levels_LevelId",
-                        column: x => x.LevelId,
-                        principalTable: "Levels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Tests_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_AppTests_LanguageId",
+                table: "AppTests",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppTests_LevelId",
+                table: "AppTests",
+                column: "LevelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppTests_UserId",
+                table: "AppTests",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AppUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AppUsers",
+                column: "NormalizedUserName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -286,41 +318,16 @@ namespace LingiWebApplication.Data.Migrations
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tests_CategoryId",
-                table: "Tests",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tests_LanguageId",
-                table: "Tests",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tests_LevelId",
-                table: "Tests",
-                column: "LevelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tests_UserId",
-                table: "Tests",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "EmailIndex",
-                table: "Users",
-                column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "UserNameIndex",
-                table: "Users",
-                column: "NormalizedUserName",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AppFlashcards");
+
+            migrationBuilder.DropTable(
+                name: "AppTests");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -337,25 +344,19 @@ namespace LingiWebApplication.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Flashcards");
+                name: "AppTypes");
 
             migrationBuilder.DropTable(
-                name: "Tests");
+                name: "AppLanguages");
+
+            migrationBuilder.DropTable(
+                name: "AppLevels");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Languages");
-
-            migrationBuilder.DropTable(
-                name: "Levels");
-
-            migrationBuilder.DropTable(
-                name: "Users");
+                name: "AppUsers");
         }
     }
 }

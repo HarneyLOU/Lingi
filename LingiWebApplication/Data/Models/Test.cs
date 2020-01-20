@@ -14,6 +14,8 @@ namespace LingiWebApplication.Data.Models
         [Required]
         public int Id { get; set; }
 
+        public string Tags { get; set; }
+
         public string Description { get; set; }
 
         [ForeignKey("UserId")]
@@ -23,7 +25,7 @@ namespace LingiWebApplication.Data.Models
         public virtual Language Language { get; set; }
 
         [ForeignKey("CategoryId")]
-        public virtual Category Category { get; set; }
+        public virtual Type Type { get; set; }
 
         [ForeignKey("LevelId")]
         public virtual Level Level { get; set; }

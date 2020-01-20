@@ -14,9 +14,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace LingiWebApplication.Controllers
 {
-    public class CategoryController : BaseApiController
+    public class TypeController : BaseApiController
     {
-        public CategoryController(
+        public TypeController(
             ApplicationDbContext context,
             RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager,
@@ -29,9 +29,9 @@ namespace LingiWebApplication.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            List<Category> categories = DbContext.Categories.ToList();
+            List<Data.Models.Type> types = DbContext.Types.ToList();
 
-            return new JsonResult(categories, JsonSettings);
+            return new JsonResult(types, JsonSettings);
         }
     }
 }
