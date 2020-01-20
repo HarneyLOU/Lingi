@@ -7,12 +7,16 @@
   width: 100%;
 }
 
-.my-card {
-  min-width: 150px;
-  max-width: 500px;
-  margin: auto;
+.deleteButton{
+  min-width: 3%;
+  max-width: 4%;
+  border:1px solid white;
 }
 
-.main-card {
-  padding-top: 100px;
+.deleteButton:hover{
+  border: 1px solid purple;
+}
+
+.inputWord{
+  float:left;
 }
