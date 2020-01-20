@@ -47,6 +47,29 @@ namespace LingiWebApplication.Controllers
             return new JsonResult(viewTests, JsonSettings);
         }
 
+        [HttpPut]
+        public IActionResult Put([FromBody]TestViewModel model)
+        {
+            if (model == null) return new StatusCodeResult(500);
 
+            Test newTest = new Test()
+            {
+                Tags = model.Tags,
+                Description = model.Description,
+                //User = model.User,
+                Language = DbContext.Languages.Where(x => x.Name == model.Language).FirstOrDefault(),
+                Type = DbContext.Types.Where(x => x.Name == model.Type).FirstOrDefault(),
+                Level = DbContext.Levels.Where(x => x.Name == model.Level).FirstOrDefault(),
+                Rate = 0,
+                LastModifiedDate = DateTime.Now,
+                CreatedDate = DateTime.Now,
+            };
+            
+
+            DbContext.Tests.Add(newTest);
+            DbContext.SaveChanges();
+
+            return new JsonResult(Mapper.Map<TestViewModel>(newTest));
+        }
     }
 }

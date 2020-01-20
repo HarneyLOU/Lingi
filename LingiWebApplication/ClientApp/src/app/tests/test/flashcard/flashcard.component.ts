@@ -102,7 +102,7 @@ export class FlashcardComponent implements OnInit{
 
     openRate(): void {
         const dialogRef = this.dialog.open(RateComponent, {
-            width: '250px',
+            width: '350px',
             data: { test: this.test }
         });
 
