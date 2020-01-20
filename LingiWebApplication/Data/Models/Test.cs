@@ -30,7 +30,6 @@ namespace LingiWebApplication.Data.Models
         [ForeignKey("LevelId")]
         public virtual Level Level { get; set; }
 
-
         public double Rate { get; set; }
 
         public DateTime LastModifiedDate { get; set; }

@@ -34,5 +34,30 @@ namespace LingiWebApplication.Controllers.TestControllers
             var viewFlashcards = Mapper.Map<List<FlashcardViewModel>>(tests);
             return new JsonResult(viewFlashcards, JsonSettings);
         }
+
+        [HttpPut]
+        public IActionResult Put([FromBody]List<FlashcardViewModel> model)
+        {
+            if (model == null) return new StatusCodeResult(500);
+
+            List<Flashcard> newFlashcards = new List<Flashcard>();
+
+            foreach(FlashcardViewModel flashcard in model)
+            {
+                newFlashcards.Add(new Flashcard()
+                {
+                    TestId = flashcard.TestId,
+                    Word1 = flashcard.Word1,
+                    Word2 = flashcard.Word2,
+                    Example1 = flashcard.Example1,
+                    Example2 = flashcard.Example2,
+                });
+            }
+
+            DbContext.Flashcards.AddRange(newFlashcards);
+            DbContext.SaveChanges();
+
+            return new JsonResult(Mapper.Map<List<FlashcardViewModel>>(newFlashcards));
+        }
     }
 }
