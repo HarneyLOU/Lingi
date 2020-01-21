@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using LingiWebApplication.Data;
@@ -8,6 +9,7 @@ using LingiWebApplication.Data.Models;
 using LingiWebApplication.Data.Models.Tests;
 using LingiWebApplication.ViewModels;
 using LingiWebApplication.ViewModels.Tests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +28,7 @@ namespace LingiWebApplication.Controllers
             : base(context, roleManager, userManager, configuration, mapper) { }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "RegisteredUser")]
         public IActionResult Get(int id)
         {
             Test test = DbContext.Tests.Where(x => x.Id == id).FirstOrDefault();
@@ -34,6 +37,7 @@ namespace LingiWebApplication.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetAll()
         {
             List<Test> tests = DbContext.Tests
@@ -56,7 +60,7 @@ namespace LingiWebApplication.Controllers
             {
                 Tags = model.Tags,
                 Description = model.Description,
-                //User = model.User,
+                UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value,
                 Language = DbContext.Languages.Where(x => x.Name == model.Language).FirstOrDefault(),
                 Type = DbContext.Types.Where(x => x.Name == model.Type).FirstOrDefault(),
                 Level = DbContext.Levels.Where(x => x.Name == model.Level).FirstOrDefault(),

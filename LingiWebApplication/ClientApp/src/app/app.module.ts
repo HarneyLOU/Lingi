@@ -12,6 +12,9 @@ import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { AuthService } from './auth/auth.service';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
@@ -31,6 +34,14 @@ const routes: Routes = [
     AuthModule,
     SharedModule
   ],
-  bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    providers: [
+        AuthService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        },
+    ]
 })
 export class AppModule { }

@@ -10,7 +10,7 @@
     <div>
       <a mat-button routerLink="login"> Login </a>
       <a mat-button routerLink="tests"> Tests </a>
-      <a mat-button routerLink="tests/add"> Add Test </a>
+      <a *ngIf="this.auth.isLoggedIn()" mat-button routerLink="tests/add"> Add Test </a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
