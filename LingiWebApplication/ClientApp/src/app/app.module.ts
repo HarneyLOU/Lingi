@@ -12,6 +12,10 @@ import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 
+import { MatDialogModule } from '@angular/material';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { ToastrModule } from 'ngx-toastr';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
@@ -19,7 +23,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AlertDialogComponent,
   ],
   imports: [
     CoreModule,
@@ -29,8 +34,11 @@ const routes: Routes = [
     BrowserAnimationsModule,
     TestsModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    MatDialogModule,
+    ToastrModule.forRoot()
   ],
+  entryComponents:[AlertDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

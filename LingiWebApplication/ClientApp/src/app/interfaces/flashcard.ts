@@ -1,6 +1,7 @@
 interface Flashcard {
-    words1: string;
-    words2: string;
-    example1: string;
-    example2: string;
+    Id: number;
+    Word1: string;
+    Word2: string;
+    Example1: string;
+    Example2: string;
 }

@@ -1,0 +1,12 @@
+.navButtons{
+    min-width:100%;
+    max-width:100%;
+}
+
+.navButton{
+    min-width:99%;
+    max-width:100%;
+    margin-bottom:5px;
+    background-color:#F6F5F6;
+    color:#673ab7;
+}
