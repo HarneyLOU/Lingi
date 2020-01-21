@@ -25,4 +25,8 @@ export class TestService {
     getFlashcards(id: number): Observable<Flashcard[]> {
         return this.http.get<Flashcard[]>(this.baseUrl + "api" + "/flashcard/" + id);
     }
+
+    addFlashcards(flashcards: Flashcard[]){
+        return this.http.put<Flashcard[]>(this.baseUrl + "api" + "/flashcard/",flashcards);
+    }
 }
