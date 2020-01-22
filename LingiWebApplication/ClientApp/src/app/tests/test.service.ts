@@ -27,6 +27,10 @@ export class TestService {
     }
 
     addFlashcards(flashcards: Flashcard[]){
-        return this.http.put<Flashcard[]>(this.baseUrl + "api" + "/flashcard/",flashcards);
+        return this.http.put<Flashcard[]>(this.baseUrl + "api" + "/flashcard",flashcards);
+    }
+
+    addTest(test: Test){
+        return this.http.put<Test>(this.baseUrl + "api" + "/test", test);
     }
 }

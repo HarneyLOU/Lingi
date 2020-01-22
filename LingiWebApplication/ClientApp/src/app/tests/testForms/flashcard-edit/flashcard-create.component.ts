@@ -13,12 +13,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class FlashcardCreateComponent {
 
-    public addingWordPanel = false;
-    public words: Array<string> = [''];
-    public wordsW: Array<string> = [''];
-    public translatedWords: Array<string> = [''];
-    public sentence: Array<string> = [''];
-    public translatedSentence: Array<string> = [''];
+    addingWordPanel = false;
 
     testKeywords: string;
     testDescription: string;
@@ -27,10 +22,10 @@ export class FlashcardCreateComponent {
     testLanguage: Language;
     testLevel: Level;
 
-    editTest: Test;
 
     languages: Language[];
     levels: Level[];
+    flashcards: Flashcard[];
 
     constructor(
         private testService: TestService,
@@ -39,13 +34,10 @@ export class FlashcardCreateComponent {
         private http: HttpClient,
         @Inject('BASE_URL') private baseUrl: string) {
    
-        this.http.get<Language[]>(baseUrl+"api"+"/language").subscribe(result => {
-            this.languages = result;
+        this.http.get<Flashcard[]>(baseUrl+"api"+"/flashcard/3").subscribe(result => {
+            this.flashcards = result;
         }, error => console.error(error));
 
-        this.http.get<Level[]>(baseUrl+"api"+"/level").subscribe(result => {
-            this.levels = result;
-        }, error => console.error(error));
     }
 
     showAddingWordPanel(){
@@ -59,37 +51,34 @@ export class FlashcardCreateComponent {
 
     addNewWord()
     {
-        this.translatedWords.push('');
-        this.words.push('');
-        this.wordsW.push('');
-        this.sentence.push('');
-        this.translatedSentence.push('');
-        
+        let flashcard: Flashcard = {
+            TestId: 1,
+            Word1: "",
+            Word2: "",
+            Example1: "",
+            Example2: ""
+        }
+        this.flashcards.push(flashcard);   
     }
     deleteWord(index: number){
-        this.translatedWords.splice(index,1);
-        this.words.splice(index,1);
-        this.wordsW.splice(index,1);
-        this.sentence.splice(index,1);
-        this.translatedSentence.splice(index,1);
+        this.flashcards.slice(index, 1);
     }
 
     addFlashcards(){
-
+        this.addTest();
         let isPossible: boolean = true;
         let i: number = 0;
-        this.wordsW.forEach(element => {
-            if(element == "") isPossible = false;
-            if(this.translatedWords[i] == "") isPossible = false;
-            if(this.sentence[i] == "") isPossible = false;
-            if(this.translatedSentence[i] == "") isPossible = false;
+        this.flashcards.forEach(element => {
+            if(element.Word1 == "") isPossible = false;
+            if(element.Word2 == "") isPossible = false;
+            if(element.Example1 == "") isPossible = false;
+            if(element.Example2 == "") isPossible = false;
             i++;
         });
         if(isPossible){
-            console.log(this.editTest.Id)
-            this.testService.addFlashcards(this.createFlashcards(this.editTest.Id)).subscribe(result => {
+            this.testService.addFlashcards(this.createFlashcards()).subscribe(result => {
                 console.log(result.toString())
-                this.messageService.success("Created new flashcards");
+                this.messageService.success("Updated flashcards");
                 this.router.navigateByUrl('/tests/add', { skipLocationChange: true }).then(() => {
                     this.router.navigate(['/tests/add']);
                 }); 
@@ -101,10 +90,8 @@ export class FlashcardCreateComponent {
 
     addTest(){
         this.testService.addTest(this.createTest()).subscribe(result => {
-            this.editTest = result;
-            this.addFlashcards();
-        }, error => console.error(error))
-        this.addFlashcards();
+            console.log(result.toString())
+        }, error => console.error(error));
     }
 
     private createTest(){
@@ -119,13 +106,13 @@ export class FlashcardCreateComponent {
         return test;
     }
 
-    private createFlashcards(testId: number){
+    private createFlashcards(){
         let flashcards: Flashcard[] = [];
         let i: number = 0;
 
         for (let entry of this.wordsW) {
             let flashcard: Flashcard = {
-                TestId: testId,
+                TestId: 3,
                 Word1: entry,
                 Word2: this.translatedWords[i],
                 Example1: this.sentence[i],

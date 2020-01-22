@@ -41,13 +41,13 @@ namespace LingiWebApplication.Controllers.TestControllers
             if (model == null) return new StatusCodeResult(500);
 
             List<Flashcard> newFlashcards = new List<Flashcard>();
+           
 
-
-            foreach(FlashcardViewModel flashcard in model)
+            foreach (FlashcardViewModel flashcard in model)
             {
                 newFlashcards.Add(new Flashcard()
                 {
-                    TestId = 32,
+                    TestId = flashcard.TestId,
                     Word1 = flashcard.Word1,
                     Word2 = flashcard.Word2,
                     Example1 = flashcard.Example1,
