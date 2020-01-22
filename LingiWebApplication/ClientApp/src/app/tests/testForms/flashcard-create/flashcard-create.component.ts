@@ -27,7 +27,7 @@ export class FlashcardCreateComponent {
     testLanguage: Language;
     testLevel: Level;
 
-    editTest: Test;
+    editTest: any;
 
     languages: Language[];
     levels: Level[];
@@ -87,7 +87,7 @@ export class FlashcardCreateComponent {
         });
         if(isPossible){
             console.log(this.editTest.Id)
-            this.testService.addFlashcards(this.createFlashcards(this.editTest.Id)).subscribe(result => {
+            this.testService.addFlashcards(this.createFlashcards(this.editTest.id)).subscribe(result => {
                 console.log(result.toString())
                 this.messageService.success("Created new flashcards");
                 this.router.navigateByUrl('/tests/add', { skipLocationChange: true }).then(() => {
@@ -109,7 +109,6 @@ export class FlashcardCreateComponent {
 
     private createTest(){
         let test: Test = {
-            Id: 3,
             Tags: this.testKeywords,
             Description: this.testDescription,
             Language: this.testLanguage.Name,
