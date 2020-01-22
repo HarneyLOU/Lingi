@@ -6,18 +6,28 @@
  
 <form class="my-form" style="min-width: 100%;" *ngIf="!addingWordPanel">
   <mat-form-field class="full-width">
-    <input matInput placeholder="Title" value="Sushi" name="flashcardTitle" [(ngModel)]="flashcardTitle"/>
+    <input matInput placeholder="Title" value="Sushi" name="testTitle" [(ngModel)]="testTitle"/>
   </mat-form-field>
 
   <mat-form-field class="full-width">
-    <input matInput placeholder="Keywords" value="Sushi" name="flashcardKeywords" [(ngModel)]="flashcardKeywords"/>
+    <input matInput placeholder="Tags" value="Sushi" name="testKeywords" [(ngModel)]="testKeywords"/>
   </mat-form-field>
 
   <mat-form-field class="full-width">
-    <textarea matInput placeholder="Leave a description" name="flashcardDescription" [(ngModel)]="flashcardDescription"></textarea>
+    <textarea matInput placeholder="Leave a description" name="testDescription" [(ngModel)]="testDescription"></textarea>
   </mat-form-field>
 
-  <button class="full-width" mat-raised-button (click)="showAddingWordPanel()">Add words!</button>
+  <div style="padding-top:20px" for="langugage">Choose language</div>
+  <mat-select style="margin-top:10px" class="full-width" [(ngModel)]="testLanguage" name="language" placeholder="Select language">
+    <mat-option *ngFor="let language of languages" [value]="language">{{language.Name}}</mat-option>
+  </mat-select>
+
+  <div style="padding-top:20px" for="level">Choose level</div>
+  <mat-select style="margin-top:10px"  class="full-width"  [(ngModel)]="testLevel" name="level" placeholder="Select level">
+    <mat-option *ngFor="let level of levels" [value]="level">{{level.Name}}</mat-option>
+  </mat-select>
+
+  <button class="full-width" style="margin-top: 60px;" mat-raised-button (click)="showAddingWordPanel()">Add words!</button>
 </form>
 
 <div *ngIf="addingWordPanel">
@@ -69,7 +79,7 @@
         </div>
         <button mat-button (click)="hideAddingWordPanel()">Back</button>
         <button mat-button (click)="addNewWord()">Add more</button>
-        <button class="saveButton" mat-button  (click)="saveFlashcards()">Save</button>
+        <button class="saveButton" mat-button  (click)="addTest()">Save</button>
     </mat-card-content>   
   </mat-card>
 </div>

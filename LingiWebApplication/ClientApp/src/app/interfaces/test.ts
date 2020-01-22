@@ -1,10 +1,7 @@
 interface Test {
-    id: number;
-    tags: string;
-    description: string;
-    type: string;
-    level: string;
-    rate: number;
-    lastModifiedDate: string;
-    createdDate: string;
+    Tags: string;
+    Description: string;
+    Language: string;
+    Type: string;
+    Level: string;
 }

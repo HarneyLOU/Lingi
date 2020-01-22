@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { TestService } from '../../test.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'src/app/message.service';
+import { HttpClient } from '@angular/common/http';
 //import { ConsoleReporter } from 'jasmine';
 
 @Component({
@@ -18,21 +19,37 @@ export class FlashcardCreateComponent {
     public translatedWords: Array<string> = [''];
     public sentence: Array<string> = [''];
     public translatedSentence: Array<string> = [''];
-    flashcardKeywords: string;
-    flashcardDescription: string;
-    flashcardTitle: string;
 
+    testKeywords: string;
+    testDescription: string;
+    testTitle: string;
+    testType: string = "Flashcards";
+    testLanguage: Language;
+    testLevel: Level;
+
+    editTest: any;
+
+    languages: Language[];
+    levels: Level[];
 
     constructor(
         private testService: TestService,
         private messageService: MessageService,
         private router: Router,
+        private http: HttpClient,
         @Inject('BASE_URL') private baseUrl: string) {
+   
+        this.http.get<Language[]>(baseUrl+"api"+"/language").subscribe(result => {
+            this.languages = result;
+        }, error => console.error(error));
+
+        this.http.get<Level[]>(baseUrl+"api"+"/level").subscribe(result => {
+            this.levels = result;
+        }, error => console.error(error));
     }
 
     showAddingWordPanel(){
         this.addingWordPanel = true;
-        console.log(this.flashcardKeywords);
     }
 
     hideAddingWordPanel()
@@ -57,7 +74,8 @@ export class FlashcardCreateComponent {
         this.translatedSentence.splice(index,1);
     }
 
-    saveFlashcards(){
+    addFlashcards(){
+
         let isPossible: boolean = true;
         let i: number = 0;
         this.wordsW.forEach(element => {
@@ -68,10 +86,11 @@ export class FlashcardCreateComponent {
             i++;
         });
         if(isPossible){
-            this.testService.addFlashcards(this.createFlashcards()).subscribe(result => {
+            console.log(this.editTest.Id)
+            this.testService.addFlashcards(this.createFlashcards(this.editTest.id)).subscribe(result => {
                 console.log(result.toString())
-                this.messageService.success("Created new flashcard");
-                this.router.navigateByUrl('/tests/addt', { skipLocationChange: true }).then(() => {
+                this.messageService.success("Created new flashcards");
+                this.router.navigateByUrl('/tests/add', { skipLocationChange: true }).then(() => {
                     this.router.navigate(['/tests/add']);
                 }); 
             }, error => console.error(error));
@@ -80,13 +99,32 @@ export class FlashcardCreateComponent {
         }
     }
 
-    private createFlashcards(){
+    addTest(){
+        this.testService.addTest(this.createTest()).subscribe(result => {
+            this.editTest = result;
+            this.addFlashcards();
+        }, error => console.error(error))
+        this.addFlashcards();
+    }
+
+    private createTest(){
+        let test: Test = {
+            Tags: this.testKeywords,
+            Description: this.testDescription,
+            Language: this.testLanguage.Name,
+            Type: this.testType,
+            Level: this.testLevel.Name,
+        }
+        return test;
+    }
+
+    private createFlashcards(testId: number){
         let flashcards: Flashcard[] = [];
         let i: number = 0;
 
         for (let entry of this.wordsW) {
             let flashcard: Flashcard = {
-                Id: 3,
+                TestId: testId,
                 Word1: entry,
                 Word2: this.translatedWords[i],
                 Example1: this.sentence[i],
@@ -97,4 +135,5 @@ export class FlashcardCreateComponent {
         }
         return flashcards;
     }
+    
 }
