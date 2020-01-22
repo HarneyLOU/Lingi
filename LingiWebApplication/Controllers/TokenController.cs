@@ -1,21 +1,29 @@
-﻿using AutoMapper;
-using LingiWebApplication.Data;
-using LingiWebApplication.Data.Models;
-using LingiWebApplication.ViewModels;
-using Microsoft.AspNetCore.Identity;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
+using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using System.Threading.Tasks;
+using LingiWebApplication.Controllers;
+using LingiWebApplication.Data;
+using AutoMapper;
+using LingiWebApplication.Data.Models;
+using LingiWebApplication.ViewModels;
 
-namespace LingiWebApplication.Controllers
+namespace TestMakerFreeWebApp.Controllers
 {
     public class TokenController : BaseApiController
     {
+        #region Private Members
+        #endregion Private Members
+
+        #region Constructor
         public TokenController(
             ApplicationDbContext context,
             RoleManager<IdentityRole> roleManager,
@@ -24,6 +32,7 @@ namespace LingiWebApplication.Controllers
             IMapper mapper
             )
             : base(context, roleManager, userManager, configuration, mapper) { }
+        #endregion
 
         [HttpPost("Auth")]
         public async Task<IActionResult> Auth([FromBody]TokenRequestViewModel model)
@@ -52,7 +61,8 @@ namespace LingiWebApplication.Controllers
                 if (user == null && model.username.Contains("@"))
                     user = await UserManager.FindByEmailAsync(model.username);
 
-                if (user == null || !await UserManager.CheckPasswordAsync(user, model.password))
+                if (user == null
+                    || !await UserManager.CheckPasswordAsync(user, model.password))
                 {
                     // user does not exists or password mismatch
                     return new UnauthorizedResult();

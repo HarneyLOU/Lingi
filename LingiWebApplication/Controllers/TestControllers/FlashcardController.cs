@@ -10,6 +10,7 @@ using LingiWebApplication.Data;
 using LingiWebApplication.Data.Models;
 using LingiWebApplication.Data.Models.Tests;
 using LingiWebApplication.ViewModels.Tests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +29,7 @@ namespace LingiWebApplication.Controllers.TestControllers
             : base(context, roleManager, userManager, configuration, mapper) { }
 
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult Get(int id)
         {
             List<Flashcard> tests = DbContext.Flashcards.Where(x => x.TestId == id).ToList();

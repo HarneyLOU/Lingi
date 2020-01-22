@@ -20,6 +20,8 @@ namespace LingiWebApplication.Data.Models
 
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
+        [Required]
+        public string UserId { get; set; }
 
         [ForeignKey("LanguageId")]
         public virtual Language Language { get; set; }

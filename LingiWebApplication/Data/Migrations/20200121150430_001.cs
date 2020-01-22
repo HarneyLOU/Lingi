@@ -119,7 +119,7 @@ namespace LingiWebApplication.Data.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Tags = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false),
                     LanguageId = table.Column<int>(nullable: true),
                     CategoryId = table.Column<int>(nullable: true),
                     LevelId = table.Column<int>(nullable: true),
@@ -153,7 +153,7 @@ namespace LingiWebApplication.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AppUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

@@ -12,9 +12,14 @@ import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 
+
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { AuthService } from './auth/auth.service';
+
 import { MatDialogModule } from '@angular/material';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { ToastrModule } from 'ngx-toastr';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -38,7 +43,16 @@ const routes: Routes = [
     MatDialogModule,
     ToastrModule.forRoot()
   ],
+
+    bootstrap: [AppComponent],
+    providers: [
+        AuthService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        },
+    ],
   entryComponents:[AlertDialogComponent],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }

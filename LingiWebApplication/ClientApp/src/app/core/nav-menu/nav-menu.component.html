@@ -8,11 +8,11 @@
     <span style="font-size: small; padding-left: 10px">The best way to polish your languages...</span>
     <span style="flex: 1 1 auto;"></span>
     <div>
-      <a mat-button routerLink="login"> Login </a>
-      <a mat-button routerLink="tests"> Tests </a>
-      <a mat-button routerLink="tests/add"> Add Test </a>
+      <a mat-button routerLink="home"> Home </a>
+      <a mat-button routerLink="tests"> Browse tests </a>
+      <a *ngIf="this.auth.isLoggedIn()" mat-button routerLink="tests/add"> Add Test </a>
+      <a *ngIf="!this.auth.isLoggedIn()" mat-button routerLink="login"> Sign in </a>
+      <a *ngIf="this.auth.isLoggedIn()" mat-button (click)="this.auth.logout()"> Sign out </a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
-
-<router-outlet></router-outlet>
