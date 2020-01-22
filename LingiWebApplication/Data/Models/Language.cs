@@ -19,5 +19,7 @@ namespace LingiWebApplication.Data.Models
 
         public virtual List<Test> Tests { get; set; }
 
+        public virtual List<ApplicationUser> Users { get; set; }
+
     }
 }

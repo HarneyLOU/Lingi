@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LingiWebApplication.Data.Models
 {
@@ -26,5 +27,8 @@ namespace LingiWebApplication.Data.Models
 
         [Required]
         public DateTime LastModifiedDate { get; set; }
+
+        [ForeignKey("LanguageId")]
+        public Language Language { get; set; }
     }
 }

@@ -4,4 +4,5 @@ interface Test {
     Language: string;
     Type: string;
     Level: string;
+    User: string;
 }

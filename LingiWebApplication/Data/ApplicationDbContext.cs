@@ -19,6 +19,7 @@ namespace LingiWebApplication.Data
 
             modelBuilder.Entity<ApplicationUser>().ToTable("AppUsers");
             modelBuilder.Entity<ApplicationUser>().HasMany(u => u.Tests).WithOne(i => i.User);
+            modelBuilder.Entity<ApplicationUser>().HasOne(u => u.Language).WithMany(i => i.Users);
 
             modelBuilder.Entity<Type>().ToTable("AppTypes");
             modelBuilder.Entity<Type>().Property(i => i.Id).ValueGeneratedOnAdd();

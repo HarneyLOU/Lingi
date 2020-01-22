@@ -56,6 +56,8 @@ export class FlashcardComponent implements OnInit{
 
         this.testService.getUser().subscribe(result => {
             this.author = result;
+            console.log(this.author);
+
         }, error => console.error(error));
     }
 

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LingiWebApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200121150430_001")]
+    [Migration("20200122145039_001")]
     partial class _001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,9 @@ namespace LingiWebApplication.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<int?>("LanguageId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime(6)");
@@ -87,6 +90,8 @@ namespace LingiWebApplication.Data.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -353,6 +358,13 @@ namespace LingiWebApplication.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("LingiWebApplication.Data.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("LingiWebApplication.Data.Models.Language", "Language")
+                        .WithMany("Users")
+                        .HasForeignKey("LanguageId");
                 });
 
             modelBuilder.Entity("LingiWebApplication.Data.Models.Test", b =>

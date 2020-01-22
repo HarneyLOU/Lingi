@@ -114,6 +114,7 @@ export class FlashcardCreateComponent {
             Language: this.testLanguage.Name,
             Type: this.testType,
             Level: this.testLevel.Name,
+            User: null,
         }
         return test;
     }

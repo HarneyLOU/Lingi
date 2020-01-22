@@ -28,20 +28,33 @@ namespace LingiWebApplication.Controllers
             : base(context, roleManager, userManager, configuration, mapper) { }
 
         [HttpGet("{id}")]
-        [Authorize]
         public IActionResult Get(int id)
         {
             Test test = DbContext.Tests
                 .Include(x => x.Type)
                 .Include(x => x.Level)
                 .Include(x => x.Language)
+                .Include(x => x.User)
                 .Where(x => x.Id == id).FirstOrDefault();
             var viewTest = Mapper.Map<TestViewModel>(test);
             return new JsonResult(viewTest, JsonSettings);
         }
 
+        [HttpGet("user/{user}")]
+        public IActionResult GetUser(string user)
+        {
+            var userId = DbContext.Users.Where(x => x.UserName == user).FirstOrDefault().Id;
+            var tests = DbContext.Tests
+                .Include(x => x.Type)
+                .Include(x => x.Level)
+                .Include(x => x.Language)
+                .Include(x => x.User)
+                .Where(x => x.UserId == userId).ToList();
+            var viewTests = Mapper.Map<List<TestViewModel>>(tests);
+            return new JsonResult(viewTests, JsonSettings);
+        }
+
         [HttpGet]
-        [Authorize]
         public IActionResult GetAll()
         {
             List<Test> tests = DbContext.Tests
@@ -57,6 +70,7 @@ namespace LingiWebApplication.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public IActionResult Put([FromBody]TestViewModel model)
         {
             if (model == null) return new StatusCodeResult(500);

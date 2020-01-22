@@ -21,6 +21,8 @@ namespace LingiWebApplication.ViewModels
 
         public double Rate { get; set; }
 
+        public string User { get; set; }
+
         public DateTime LastModifiedDate { get; set; }
 
         public DateTime CreatedDate { get; set; }

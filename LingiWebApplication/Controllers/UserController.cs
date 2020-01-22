@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using LingiWebApplication.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace LingiWebApplication.Controllers
 {
@@ -28,12 +30,17 @@ namespace LingiWebApplication.Controllers
         [Authorize]
         public IActionResult Get()
         {
+            var id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var currentUser = DbContext.Users.Include(x => x.Language).Where(x => x.Id == id).FirstOrDefault();
 
-            var a = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            
-            
-            
-            return new JsonResult(DbContext.Users.Where(x => x.Id == a), JsonSettings);
+            UserViewModel user = new UserViewModel
+            {
+                UserName = currentUser.UserName,
+                Email = currentUser.Email,
+                Language = currentUser.Language.Name,
+            };
+   
+            return new JsonResult(user, JsonSettings);
         }
     }
 }

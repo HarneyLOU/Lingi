@@ -14,10 +14,6 @@ namespace LingiWebApplication.Data
             RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager)
         {
-            if (!dbContext.Users.Any())
-            {
-                CreateUsers(dbContext, roleManager, userManager).GetAwaiter().GetResult();
-            }
             if (!dbContext.Types.Any())
             {
                 SeedCategories(dbContext);
@@ -29,6 +25,10 @@ namespace LingiWebApplication.Data
             if (!dbContext.Levels.Any())
             {
                 SeedLevels(dbContext);
+            }
+            if (!dbContext.Users.Any())
+            {
+                CreateUsers(dbContext, roleManager, userManager).GetAwaiter().GetResult();
             }
             if (!dbContext.Tests.Any())
             {
@@ -243,7 +243,8 @@ namespace LingiWebApplication.Data
                 UserName = "Admin",
                 Email = "admin@testmakerfree.com",
                 CreatedDate = createdDate,
-                LastModifiedDate = lastModifiedDate
+                LastModifiedDate = lastModifiedDate,
+                Language = dbContext.Languages.FirstOrDefault()
             };
 
 
@@ -264,7 +265,8 @@ namespace LingiWebApplication.Data
                 UserName = "Raszer",
                 Email = "raszer@atom.pl",
                 CreatedDate = createdDate,
-                LastModifiedDate = lastModifiedDate
+                LastModifiedDate = lastModifiedDate,
+                Language = dbContext.Languages.FirstOrDefault()
             };
             var user_Piotr = new ApplicationUser()
             {
@@ -272,7 +274,8 @@ namespace LingiWebApplication.Data
                 UserName = "Piotr",
                 Email = "piotr@mail.kom",
                 CreatedDate = createdDate,
-                LastModifiedDate = lastModifiedDate
+                LastModifiedDate = lastModifiedDate,
+                Language = dbContext.Languages.FirstOrDefault()
             };
 
             if (await userManager.FindByNameAsync(user_Raszer.UserName) == null)
