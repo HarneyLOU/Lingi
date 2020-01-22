@@ -31,7 +31,7 @@ export class FlashcardComponent implements OnInit{
     mode = 'determinate';
     value = 0;
 
-    a: any;
+    author: any;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -55,7 +55,7 @@ export class FlashcardComponent implements OnInit{
         }, error => console.error(error));
 
         this.testService.getUser().subscribe(result => {
-            this.a = result;
+            this.author = result;
         }, error => console.error(error));
     }
 

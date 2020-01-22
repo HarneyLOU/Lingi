@@ -31,7 +31,11 @@ namespace LingiWebApplication.Controllers
         [Authorize]
         public IActionResult Get(int id)
         {
-            Test test = DbContext.Tests.Where(x => x.Id == id).FirstOrDefault();
+            Test test = DbContext.Tests
+                .Include(x => x.Type)
+                .Include(x => x.Level)
+                .Include(x => x.Language)
+                .Where(x => x.Id == id).FirstOrDefault();
             var viewTest = Mapper.Map<TestViewModel>(test);
             return new JsonResult(viewTest, JsonSettings);
         }
@@ -43,6 +47,7 @@ namespace LingiWebApplication.Controllers
             List<Test> tests = DbContext.Tests
                 .Include(x => x.Type)
                 .Include(x => x.Level)
+                .Include(x => x.Language)
                 .AsNoTracking()
                 .ToList();
 

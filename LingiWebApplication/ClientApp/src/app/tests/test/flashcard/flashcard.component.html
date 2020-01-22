@@ -3,7 +3,7 @@
       <mat-card-header>
         <div class="left">
           <mat-card-title>Flashcard</mat-card-title>
-          <mat-card-subtitle>{{a}}</mat-card-subtitle>
+          <mat-card-subtitle>{{test?.Description}}</mat-card-subtitle>
         </div>
         <div class="right">
           <div *ngIf="!ifWon && ifStarted; else elseRate">

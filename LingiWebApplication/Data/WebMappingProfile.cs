@@ -18,7 +18,9 @@ namespace LingiWebApplication.Data
                 .ForMember(destination => destination.Type,
                 opts => opts.MapFrom(source => source.Type.Name))
                 .ForMember(destination => destination.Level,
-                opts => opts.MapFrom(source => source.Level.Name));
+                opts => opts.MapFrom(source => source.Level.Name))
+                .ForMember(destination => destination.Language,
+                opts => opts.MapFrom(source => source.Language.Name));
 
             CreateMap<Flashcard, FlashcardViewModel>().ReverseMap();
 ;
