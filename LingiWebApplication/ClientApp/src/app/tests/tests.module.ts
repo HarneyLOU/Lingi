@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FlashcardCreateComponent } from './testForms/flashcard/flashcard-create.component';
+import { FlashcardCreateComponent } from './testForms/flashcard-create/flashcard-create.component';
 import { BaseFormComponent } from './testForms/base-form/base-form.component';
 import { TestTableComponent } from './test-table/test-table.component';
 import { TestComponent } from './test/test.component';
@@ -9,13 +9,16 @@ import { SingleFlashcardComponent } from './test/flashcard/single-flashcard/sing
 import { SharedModule } from '../shared/shared.module';
 import { TestService } from './test.service';
 import { RouterModule } from '@angular/router';
+import { MessageService } from '../message.service';
+import { QuizCreateComponent } from './testForms/quiz-create/quiz-create.component';
 
 const routes = [
   { path: 'tests', component: TestTableComponent },
   { path: 'tests/add', component: BaseFormComponent },
  // { path: 'tests/:id', component: TestComponent },
   { path: 'flashcard/:id', component: FlashcardComponent },
-
+  { path: 'tests/add/Flashcards', component: FlashcardCreateComponent },
+  { path: 'tests/add/Quiz', component: QuizCreateComponent },
 ];
 
 @NgModule({
@@ -26,7 +29,8 @@ const routes = [
         TestComponent,
         FlashcardComponent,
         SingleFlashcardComponent,
-        RateComponent
+        RateComponent,
+        QuizCreateComponent
     ],
   imports: [
     SharedModule,
@@ -36,6 +40,6 @@ const routes = [
     exports: [
         TestTableComponent,
         ],
-    providers: [TestService]
+    providers: [TestService, MessageService]
 })
 export class TestsModule { }

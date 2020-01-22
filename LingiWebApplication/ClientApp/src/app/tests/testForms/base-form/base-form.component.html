@@ -1,16 +1,15 @@
 <div class="main-card">
   <mat-card class="my-card">
-    <mat-card-header>
-      <mat-card-title>CREATE TEST</mat-card-title>
+    <mat-card-header class="cardHeader">
+      <mat-card-title class="cardTitle">CREATE TEST</mat-card-title>
     </mat-card-header>
     <mat-form-field class="full-width">
       <mat-select [(ngModel)]="selectedCategory" name="category" placeholder="Select the category">
-        <mat-option *ngFor="let category of categories" [value]="category">{{category.Name}}</mat-option>
+        <mat-option *ngFor="let category of categories" routerLink="{{category.Name}}" [value]="category">{{category.Name}}</mat-option>
       </mat-select>
     </mat-form-field>
     <div>
-      <app-flashcard-create *ngIf="selectedCategory?.Name === 'Flashcards' "></app-flashcard-create>
+     <!--<app-flashcard-create *ngIf="selectedCategory?.Name === 'Flashcards' "></app-flashcard-create>-->
     </div>
-    
   </mat-card>
 </div>

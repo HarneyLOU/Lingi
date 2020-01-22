@@ -28,7 +28,7 @@ namespace LingiWebApplication.Controllers
             : base(context, roleManager, userManager, configuration, mapper) { }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "RegisteredUser")]
+        [Authorize]
         public IActionResult Get(int id)
         {
             Test test = DbContext.Tests.Where(x => x.Id == id).FirstOrDefault();

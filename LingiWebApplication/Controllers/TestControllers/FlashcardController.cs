@@ -44,11 +44,12 @@ namespace LingiWebApplication.Controllers.TestControllers
 
             List<Flashcard> newFlashcards = new List<Flashcard>();
 
+
             foreach(FlashcardViewModel flashcard in model)
             {
                 newFlashcards.Add(new Flashcard()
                 {
-                    TestId = flashcard.TestId,
+                    TestId = 32,
                     Word1 = flashcard.Word1,
                     Word2 = flashcard.Word2,
                     Example1 = flashcard.Example1,

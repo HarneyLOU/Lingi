@@ -5,6 +5,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '../shared/material.module';
 import { HomeComponent } from './home/home.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
     declarations: [
         NavMenuComponent,
         NotFoundComponent,
+        NavBarComponent,
         HomeComponent
     ],
   imports: [
@@ -23,6 +25,7 @@ const routes: Routes = [
   ],
     exports: [
         NavMenuComponent,
+        NavBarComponent,
         NotFoundComponent,
         HomeComponent
     ]

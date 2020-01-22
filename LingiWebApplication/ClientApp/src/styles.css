@@ -1,6 +1,115 @@
-html, body { height: 100%; }
+html, body { }
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #E5F0FF
+}
+
+.cardTitle
+{
+  min-width: 100%;
+  color:#F6F5F6;
+}
+
+.cardHeader{
+  padding-top:10px;
+  margin-bottom:15px;
+  border-radius: 3px;
+  /*background-color:#F6F5F6;*/
+  box-shadow: 1px 3px #E2E1E2;
+  background: linear-gradient(45deg, #673ab7, #673ab7 40%, #F6F5F6 40%, #F6F5F6);
+}
+
+.mat-raised-button{
+  box-shadow: 1px 3px #E2E1E2 !important;
+}
+
+.mat-select-panel{
+  box-shadow: 1px 3px #E2E1E2 !important;
+}
+
+
+.toLeft{
+  float:left;
+}
+
+.navbar{
+  min-width:19%;
+  max-width:19%;
+  margin-left:5%;
+  margin-top:80px;
+  margin-right:0px;
+}
+
+.my-card {
+  margin: auto;
+  box-shadow: 1px 3px #E2E1E2 !important;
+}
+
+.main-card{
+  min-width:70%;
+  max-width:70%;
+  margin: auto;
+}
+
+.my-shadow {
+  box-shadow: 1px 3px #E2E1E2 !important;
+}
+
+.navTitle
+{
+  min-width: 100%;
+  color:#F6F5F6;
+}
+
+.navHeader{
+  padding-top:10px;
+  margin-bottom:15px;
+  border-radius: 3px;
+  box-shadow: 1px 3px #E2E1E2;
+  background-color: #673ab7;
+}
+
+.alert-danger {
+  position: absolute;
+  top:-10px;
+  left:0px;
+  width: 100%;
+  font-size: 13px;
+  color: #721c24;
+  background-color:#f8d7da;
+  border-color:#f5c6cb;
+}
+
+.container {
+  position: absolute !important;
+  top: 60px;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  background-color: #E5F0FF
+}
+
+.sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  background: #2F3640;
+  color: white;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #4A586E
 }
