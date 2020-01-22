@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '../shared/material.module';
 import { HomeComponent } from './home/home.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { UserService } from './user/user.service';
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -28,6 +29,9 @@ const routes: Routes = [
         NavBarComponent,
         NotFoundComponent,
         HomeComponent
+    ],
+    providers: [
+        UserService
     ]
 })
 export class CoreModule { }

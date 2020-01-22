@@ -4,14 +4,17 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
+import { UserService } from '../core/user/user.service';
 
 @Injectable()
 export class AuthService {
     authKey: string = "auth";
-    clientId: string = "TestMakerFree";
+    currentUser: string = "user";
+    clientId: string = "Lingi";
 
     constructor(private http: HttpClient,
-        @Inject(PLATFORM_ID) private platformId: any) {
+        @Inject(PLATFORM_ID) private platformId: any,
+        private userService: UserService) {
     }
 
     // performs the login
@@ -79,12 +82,25 @@ export class AuthService {
                 localStorage.setItem(
                     this.authKey,
                     JSON.stringify(auth));
+                this.setUser();
+
             }
             else {
                 localStorage.removeItem(this.authKey);
+                localStorage.removeItem(this.currentUser);
             }
         }
         return true;
+    }
+
+    setUser() {
+        let user: User;
+        this.userService.getUser().subscribe(result => {
+            user = result;
+            localStorage.setItem(
+                this.currentUser,
+                JSON.stringify(user.UserName));
+        })
     }
 
     // Retrieves the auth JSON object (or NULL if none)

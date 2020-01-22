@@ -8,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class NavBarComponent implements OnInit {
 
     open: boolean = false;
-  constructor() { }
+    user: string;
+
+    constructor() {
+        this.user = localStorage.getItem("user");
+        console.log(this.user);
+    }
 
   ngOnInit() {
     }

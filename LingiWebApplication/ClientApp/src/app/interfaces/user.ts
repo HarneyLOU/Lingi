@@ -1,5 +1,5 @@
-interface Type {
-    userName: string;
-    email: string;
-    language: string;
+interface User {
+    UserName: string;
+    Email: string;
+    Language: string;
 }
