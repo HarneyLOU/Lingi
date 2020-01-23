@@ -94,5 +94,56 @@ namespace LingiWebApplication.Controllers
 
             return new JsonResult(Mapper.Map<TestViewModel>(newTest));
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Post([FromBody]TestViewModel model)
+        {
+            if (model == null) return new StatusCodeResult(500);
+
+            var test = DbContext.Tests.Where(x => x.Id == model.Id).FirstOrDefault();
+
+            if (test == null)
+            {
+                return NotFound(new
+                {
+                    Error = String.Format("Test ID {0} has not been found", model.Id)
+                });
+            }
+
+                test.Tags = model.Tags;
+                test.Description = model.Description;
+                test.UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                test.Language = DbContext.Languages.Where(x => x.Name == model.Language).FirstOrDefault();
+                test.Type = DbContext.Types.Where(x => x.Name == model.Type).FirstOrDefault();
+                test.Level = DbContext.Levels.Where(x => x.Name == model.Level).FirstOrDefault();
+                test.LastModifiedDate = DateTime.Now;
+
+            DbContext.SaveChanges();
+
+            return new JsonResult(Mapper.Map<TestViewModel>(test));
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            var test = DbContext.Tests.Where(i => i.Id == id)
+                .FirstOrDefault();
+
+            if (test == null)
+            {
+                return NotFound(new
+                {
+                    Error = String.Format("Test ID {0} has not been found", id)
+                });
+            }
+
+            DbContext.Tests.Remove(test);
+
+            DbContext.SaveChanges();
+
+            return new NoContentResult();
+        }
     }
 }

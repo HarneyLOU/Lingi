@@ -38,6 +38,7 @@ namespace LingiWebApplication.Controllers.TestControllers
         }
 
         [HttpPut]
+        [Authorize]
         public IActionResult Put([FromBody]List<FlashcardViewModel> model)
         {
             if (model == null) return new StatusCodeResult(500);
@@ -62,5 +63,70 @@ namespace LingiWebApplication.Controllers.TestControllers
 
             return new JsonResult(Mapper.Map<List<FlashcardViewModel>>(newFlashcards));
         }
+
+        [HttpPost]
+        public IActionResult Post([FromBody]List<FlashcardViewModel> model)
+        {
+            if (model == null) return new StatusCodeResult(500);
+
+            List<Flashcard> newFlashcards = new List<Flashcard>();
+            List<Flashcard> updatedFlashcards = new List<Flashcard>();
+
+            foreach (FlashcardViewModel flashcard in model)
+            {
+                if(flashcard.Id == 0)
+                {
+                    newFlashcards.Add(new Flashcard()
+                    {
+                        TestId = flashcard.TestId,
+                        Word1 = flashcard.Word1,
+                        Word2 = flashcard.Word2,
+                        Example1 = flashcard.Example1,
+                        Example2 = flashcard.Example2,
+                    });
+                }
+                else
+                {
+                    var ourFlashcard = DbContext.Flashcards.Where(x => x.Id == flashcard.Id).FirstOrDefault();
+                    ourFlashcard.Word1 = flashcard.Word1;
+                    ourFlashcard.Word2 = flashcard.Word2;
+                    ourFlashcard.Example1 = flashcard.Example1;
+                    ourFlashcard.Example2 = flashcard.Example2;
+                    updatedFlashcards.Add(ourFlashcard);
+                }
+            }
+
+            if (newFlashcards.Count() != 0)
+            {
+                updatedFlashcards.AddRange(newFlashcards);
+                DbContext.Flashcards.AddRange(newFlashcards);
+            }
+            DbContext.SaveChanges();
+
+            return new JsonResult(Mapper.Map<List<FlashcardViewModel>>(updatedFlashcards));
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            var flashcard = DbContext.Flashcards.Where(i => i.Id == id)
+                .FirstOrDefault();
+
+            if (flashcard == null)
+            {
+                return NotFound(new
+                {
+                    Error = String.Format("Flashcard ID {0} has not been found", id)
+                });
+            }
+
+            DbContext.Flashcards.Remove(flashcard);
+
+            DbContext.SaveChanges();
+
+            return new NoContentResult();
+        }
+
     }
 }
