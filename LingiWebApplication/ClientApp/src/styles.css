@@ -94,10 +94,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width:20%;
-  background: #2F3640;
-  color: white;
-
+  width: 20%;
+  background-color: white;
 }
 
 .header {

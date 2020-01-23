@@ -7,12 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
 
-    open: boolean = false;
+    open: boolean = true;
     user: string;
+    welcome: string;
 
     constructor() {
-        this.user = localStorage.getItem("user");
-        console.log(this.user);
+        this.user = localStorage.getItem("user").toString();
+        this.welcome = "Logged as: " + this.user.replace("\"", "").replace("\"", "");
     }
 
   ngOnInit() {
