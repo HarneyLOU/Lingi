@@ -94,5 +94,32 @@ namespace LingiWebApplication.Controllers
 
             return new JsonResult(Mapper.Map<TestViewModel>(newTest));
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Post([FromBody]TestViewModel model)
+        {
+            if (model == null) return new StatusCodeResult(500);
+
+            Test newTest = new Test()
+            {
+                Tags = model.Tags,
+                Description = model.Description,
+                UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                Language = DbContext.Languages.Where(x => x.Name == model.Language).FirstOrDefault(),
+                Type = DbContext.Types.Where(x => x.Name == model.Type).FirstOrDefault(),
+                Level = DbContext.Levels.Where(x => x.Name == model.Level).FirstOrDefault(),
+                Rate = 0,
+                LastModifiedDate = DateTime.Now,
+                CreatedDate = DateTime.Now,
+            };
+
+
+            DbContext.Tests.Update(newTest);
+            DbContext.SaveChanges();
+
+            return new JsonResult(Mapper.Map<TestViewModel>(newTest));
+        }
+
     }
 }

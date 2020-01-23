@@ -34,6 +34,10 @@ export class TestService {
         return this.http.put<Test>(this.baseUrl + "api" + "/test", test);
     }
 
+    updateTest(test: Test){
+        return this.http.post<Test>(this.baseUrl + "api" + "/test", test);
+    }
+
     getUser(): Observable<any> {
         return this.http.get<any>(this.baseUrl + "api" + "/user");
     }

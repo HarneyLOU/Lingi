@@ -11,13 +11,14 @@ import { TestService } from './test.service';
 import { RouterModule } from '@angular/router';
 import { MessageService } from '../message.service';
 import { QuizCreateComponent } from './testForms/quiz-create/quiz-create.component';
-
+import { FlashcardEditComponent } from './testForms/flashcard-edit/flashcard-edit.component';
 const routes = [
   { path: 'tests', component: TestTableComponent },
   { path: 'tests/add', component: BaseFormComponent },
  // { path: 'tests/:id', component: TestComponent },
   { path: 'flashcard/:id', component: FlashcardComponent },
   { path: 'tests/add/Flashcards', component: FlashcardCreateComponent },
+  { path: 'tests/edit/Flashcards/:id', component: FlashcardEditComponent },
   { path: 'tests/add/Quiz', component: QuizCreateComponent },
 ];
 
@@ -30,7 +31,8 @@ const routes = [
         FlashcardComponent,
         SingleFlashcardComponent,
         RateComponent,
-        QuizCreateComponent
+        QuizCreateComponent,
+        FlashcardEditComponent
     ],
   imports: [
     SharedModule,

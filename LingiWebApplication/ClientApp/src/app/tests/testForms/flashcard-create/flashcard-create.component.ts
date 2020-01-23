@@ -15,10 +15,6 @@ export class FlashcardCreateComponent {
 
     public addingWordPanel = false;
     public words: Array<string> = [''];
-    public wordsW: Array<string> = [''];
-    public translatedWords: Array<string> = [''];
-    public sentence: Array<string> = [''];
-    public translatedSentence: Array<string> = [''];
 
     testKeywords: string;
     testDescription: string;
@@ -31,6 +27,7 @@ export class FlashcardCreateComponent {
 
     languages: Language[];
     levels: Level[];
+    flashcards: Flashcard[] = [];
 
     constructor(
         private testService: TestService,
@@ -46,6 +43,15 @@ export class FlashcardCreateComponent {
         this.http.get<Level[]>(baseUrl+"api"+"/level").subscribe(result => {
             this.levels = result;
         }, error => console.error(error));
+
+        let flashcard: Flashcard = { 
+            TestId: 1,
+            Word1: '',
+            Word2: '',
+            Example1: '',
+            Example2: ''
+        }
+        this.flashcards.push(flashcard);
     }
 
     showAddingWordPanel(){
@@ -59,32 +65,30 @@ export class FlashcardCreateComponent {
 
     addNewWord()
     {
-        this.translatedWords.push('');
         this.words.push('');
-        this.wordsW.push('');
-        this.sentence.push('');
-        this.translatedSentence.push('');
-        
+        let flashcard: Flashcard = { 
+            TestId: 1,
+            Word1: '',
+            Word2: '',
+            Example1: '',
+            Example2: ''
+        }
+        this.flashcards.push(flashcard);
     }
     deleteWord(index: number){
-        this.translatedWords.splice(index,1);
         this.words.splice(index,1);
-        this.wordsW.splice(index,1);
-        this.sentence.splice(index,1);
-        this.translatedSentence.splice(index,1);
+        this.flashcards.splice(index,1);
     }
 
     addFlashcards(){
-
         let isPossible: boolean = true;
-        let i: number = 0;
-        this.wordsW.forEach(element => {
-            if(element == "") isPossible = false;
-            if(this.translatedWords[i] == "") isPossible = false;
-            if(this.sentence[i] == "") isPossible = false;
-            if(this.translatedSentence[i] == "") isPossible = false;
-            i++;
+        this.flashcards.forEach(element => {
+            if(element.Word1 == "") isPossible = false;
+            if(element.Word2 == "") isPossible = false;
+            if(element.Example1 == "") isPossible = false;
+            if(element.Example2 == "") isPossible = false;
         });
+
         if(isPossible){
             console.log(this.editTest.Id)
             this.testService.addFlashcards(this.createFlashcards(this.editTest.id)).subscribe(result => {
@@ -123,13 +127,13 @@ export class FlashcardCreateComponent {
         let flashcards: Flashcard[] = [];
         let i: number = 0;
 
-        for (let entry of this.wordsW) {
+        for (let entry of this.flashcards) {
             let flashcard: Flashcard = {
                 TestId: testId,
-                Word1: entry,
-                Word2: this.translatedWords[i],
-                Example1: this.sentence[i],
-                Example2: this.translatedSentence[i]
+                Word1: entry.Word1,
+                Word2: entry.Word2,
+                Example1: entry.Example1,
+                Example2: entry.Example2
             }
             i++;
             flashcards.push(flashcard);
