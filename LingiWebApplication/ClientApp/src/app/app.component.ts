@@ -17,5 +17,8 @@ export class AppComponent {
         console.log('Unregistered');
       }
     })
-  }
+    }
+    isLoggedIn(): boolean {
+        return localStorage.getItem("auth") != null;
+    }
 }
