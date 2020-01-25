@@ -7,7 +7,10 @@
 </mat-sidenav>
     <mat-sidenav-content>
       <div *ngIf="this.isLoggedIn()">
-        <p><button mat-icon-button (click)="open=!open">Show<mat-icon>keyboard_arrow_right</mat-icon></button></p>
+        <div class="left-bar">
+          <mat-icon (click)="open=!open" *ngIf="!open" style="color:#f6f5f6;cursor:pointer;font-size:90px;position: absolute;left:-20px;top:27%;">keyboard_arrow_right</mat-icon>
+          <mat-icon (click)="open=!open" *ngIf="open" style="color:#f6f5f6;cursor:pointer;font-size:90px;position: absolute;left:-20px;top:27%;">keyboard_arrow_left</mat-icon>
+        </div>
       </div>
       <router-outlet></router-outlet>
     </mat-sidenav-content>

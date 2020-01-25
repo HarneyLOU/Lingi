@@ -24,6 +24,7 @@ export class FlashcardEditComponent{
   testType: string = "Flashcards";
   testLanguage: Language;
   testLevel: Level;
+  testId: number = 0;
 
   constructor(
       private testService: TestService,
@@ -34,6 +35,8 @@ export class FlashcardEditComponent{
       @Inject('BASE_URL') private baseUrl: string) {
       //let type = this.router.getCurrentNavigation().extras.state.type;
       var id = +this.activatedRoute.snapshot.params["id"];
+
+      this.testId = id;
 
       this.http.get<any>(baseUrl+"api"+"/test/"+id).subscribe(result => {
         this.testDescription = result.Description;
@@ -46,6 +49,10 @@ export class FlashcardEditComponent{
 
       this.http.get<Flashcard[]>(baseUrl+"api"+"/flashcard/"+id).subscribe(result => {
         this.flashcards = result;
+        console.log(result);
+        for(let h = 0; h<result.length-1; h++){
+            this.words.push('')
+        }
       }, error => console.error(error));
 
       this.http.get<Language[]>(baseUrl+"api"+"/language").subscribe(result => {
@@ -69,53 +76,60 @@ export class FlashcardEditComponent{
     addNewWord()
     {
         this.words.push('');
-        let flashcard: Flashcard = { 
-            TestId: 1,
+        let flashcardx: Flashcard = { 
+            TestId: this.testId,
             Word1: '',
             Word2: '',
             Example1: '',
             Example2: ''
         }
-        this.flashcards.push(flashcard);
+        this.flashcards.push(flashcardx);
+        console.log(flashcardx);
     }
     deleteWord(index: number){
         this.words.splice(index,1);
-        this.flashcards.splice(index,1);
+        this.testService.deleteFlashcards(this.flashcards[index].Id).subscribe(result => {
+          console.log(result);
+          this.messageService.error("Delete word");
+          //this.flashcards.splice(index,1);
+      }, error => console.error(error))
+      this.flashcards.splice(index,1);
     }
 
-    addFlashcards(){
-        // let isPossible: boolean = true;
-        // this.flashcards.forEach(element => {
-        //     if(element.Word1 == "") isPossible = false;
-        //     if(element.Word2 == "") isPossible = false;
-        //     if(element.Example1 == "") isPossible = false;
-        //     if(element.Example2 == "") isPossible = false;
-        // });
+    updateFlashcards(){
+        let isPossible: boolean = true;
+        this.flashcards.forEach(element => {
+            console.log(element);
+            if(element.Word1 == "") isPossible = false;
+            if(element.Word2 == "") isPossible = false;
+            if(element.Example1 == "") isPossible = false;
+            if(element.Example2 == "") isPossible = false;
+        });
 
-        // if(isPossible){
-        //     console.log(this.editTest.Id)
-        //     this.testService.addFlashcards(this.createFlashcards(this.editTest.id)).subscribe(result => {
-        //         console.log(result.toString())
-        //         this.messageService.success("Created new flashcards");
-        //         this.router.navigateByUrl('/tests/add', { skipLocationChange: true }).then(() => {
-        //             this.router.navigate(['/tests/add']);
-        //         }); 
-        //     }, error => console.error(error));
-        // } else {
-        //     this.messageService.error("Invalid form");
-        // }
+        if(isPossible){
+            this.testService.editFlashcards(this.flashcards).subscribe(result => {
+                console.log(result.toString())
+                this.messageService.success("Updated flashcards");
+                this.router.navigateByUrl('/tests/edit', { skipLocationChange: true }).then(() => {
+                    this.router.navigate(['/tests/edit']);
+                }); 
+            }, error => console.error(error));
+        } else {
+            this.messageService.error("Invalid form");
+        }
     }
 
     updateTest(){
-        this.testService.updateTest(this.createTest()).subscribe(result => {
+        this.testService.editTest(this.createTest()).subscribe(result => {
             this.editTest = result;
-           // this.addFlashcards();
+            console.log(result);
+            this.updateFlashcards();
         }, error => console.error(error))
-        this.addFlashcards();
     }
 
     private createTest(){
         let test: Test = {
+            Id: this.testId,
             Tags: this.testKeywords,
             Description: this.testDescription,
             Language: this.testLanguage.Name,
@@ -126,23 +140,24 @@ export class FlashcardEditComponent{
         return test;
     }
 
-    private createFlashcards(testId: number){
-        // let flashcards: Flashcard[] = [];
-        // let i: number = 0;
+    // private createFlashcards(testId: number){
+    //     let flashcards: Flashcard[] = [];
+    //     let i: number = 0;
 
-        // for (let entry of this.flashcards) {
-        //     let flashcard: Flashcard = {
-        //         TestId: testId,
-        //         Word1: entry.Word1,
-        //         Word2: entry.Word2,
-        //         Example1: entry.Example1,
-        //         Example2: entry.Example2
-        //     }
-        //     i++;
-        //     flashcards.push(flashcard);
-        // }
-        // return flashcards;
-    }
+    //     for (let entry of this.flashcards) {
+    //         let flashcard: Flashcard = {
+    //             Id: entry.Id,
+    //             TestId: testId,
+    //             Word1: entry.Word1,
+    //             Word2: entry.Word2,
+    //             Example1: entry.Example1,
+    //             Example2: entry.Example2
+    //         }
+    //         i++;
+    //         flashcards.push(flashcard);
+    //     }
+    //     return flashcards;
+    // }
 
 
 }

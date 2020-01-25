@@ -39,25 +39,25 @@
               <div class="alert alert-danger" *ngIf="wordModel.invalid && (wordModel.touched || wordModel.dirty)">
                 <div style="position:absolute" *ngIf="wordModel.errors.required"> Word is needed </div>
             </div>
-              <input required type="text" minlength="2" maxlength="40" class="inputWord" matInput [(ngModel)]="flashcards[i].Word1" name="word1" placeholder="Word" #wordInput #wordModel="ngModel"/>
+              <input required type="text" minlength="2" maxlength="40" class="inputWord" matInput [(ngModel)]="flashcards[i].Word1" name="Word1" placeholder="Word" #wordInput #wordModel="ngModel"/>
         </mat-form-field>
             <mat-form-field style="margin-left:20px;width:15%">
               <div class="alert alert-danger" *ngIf="word2Model.invalid && (word2Model.touched || word2Model.dirty)">
                 <div style="position:absolute" *ngIf="word2Model.errors.required"> Word is needed </div>
             </div>
-              <input required type="text" minlength="2" maxlength="40" class="inputWord" matInput [(ngModel)]="flashcards[i].Word2" name="word2" placeholder="Translated word" #word2Input #word2Model="ngModel" />
+              <input required type="text" minlength="2" maxlength="40" class="inputWord" matInput [(ngModel)]="flashcards[i].Word2" name="Word2" placeholder="Translated word" #word2Input #word2Model="ngModel" />
             </mat-form-field>
             <mat-form-field style="margin-left:20px;width:25%">
               <div class="alert alert-danger" *ngIf="sentenceModel.invalid && (sentenceModel.touched || sentenceModel.dirty)">
                 <div style="position:absolute" *ngIf="sentenceModel.errors.required"> Sentence is needed </div>
             </div>
-              <input required type="text" minlength="2" maxlength="250" class="inputWord" matInput [(ngModel)]="flashcards[i].Example1" name="ex1" placeholder="Sentence" #sentenceInput #sentenceModel="ngModel" />
+              <input required type="text" minlength="2" maxlength="250" class="inputWord" matInput [(ngModel)]="flashcards[i].Example1" name="Ex1" placeholder="Sentence" #sentenceInput #sentenceModel="ngModel" />
             </mat-form-field>
             <mat-form-field style="margin-left:20px;width:25%">
               <div class="alert alert-danger" *ngIf="sentence2Model.invalid && (sentence2Model.touched || sentence2Model.dirty)">
                <div style="position:absolute" *ngIf="sentence2Model.errors.required"> Sentence is needed </div>
             </div>
-              <input required type="text" minlength="2" maxlength="250" class="inputWord" matInput [(ngModel)]="flashcards[i].Example2" name="ex2" placeholder="Translated sentence" #sentence2Input #sentence2Model="ngModel"/>
+              <input required type="text" minlength="2" maxlength="250" class="inputWord" matInput [(ngModel)]="flashcards[i].Example2" name="Ex2" placeholder="Translated sentence" #sentence2Input #sentence2Model="ngModel"/>
             </mat-form-field>
           </div>
           <button mat-button (click)="hideAddingWordPanel()">Back</button>
