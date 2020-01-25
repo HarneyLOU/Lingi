@@ -14,10 +14,6 @@ mat-chip-list mat-chip {
   background: linear-gradient(45deg, #673ab7, #673ab7 60%, #F6F5F6 40%, #F6F5F6) !important
 }
 
-mat-chip-list mat-chip:hover {
-font-size: 24px;
-}
-
 .logged {
   border-radius: 0 0 0 0;
   background: 0;
