@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -28,21 +28,31 @@ export class TestTableComponent implements OnInit{
 
     types: Type[];
 
+    @Input() user: string;
+    currentUser: string;
+
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
     @ViewChild(MatSort, { static: true }) sort: MatSort;
 
     constructor(
         private testService: TestService,
-        private router: Router,
-        @Inject('BASE_URL') private baseUrl: string) {
+        private router: Router) {
     }
 
     ngOnInit() {
-        this.testService.getTests().subscribe(result => {
-            this.dataSource.data = result
-            //this.tests = result
-        }, error => console.error(error));
-
+        if (this.user) {
+            if (this.user == localStorage.getItem("user").toString()) {
+                this.currentUser = localStorage.getItem("user").toString();
+            }
+            this.testService.getUserTests(this.user).subscribe(result => {
+                this.dataSource.data = result
+            }, error => console.error(error));
+        }
+        else {
+            this.testService.getTests().subscribe(result => {
+                this.dataSource.data = result
+            }, error => console.error(error));
+        }
         this.testService.getTypes().subscribe(result => {
             this.types = result
         }, error => console.error(error));
@@ -54,8 +64,8 @@ export class TestTableComponent implements OnInit{
             let myFilter = JSON.parse(filter);
             return (myFilter.type !== 'all' ? data.Type == myFilter.type : true)
                 //&& (myFilter.level !== 'all' ? data.Level == myFilter.level : true)
-                && (data.Tags.trim().toLowerCase().indexOf(myFilter.all) !== -1
-                || data.Description.trim().toLowerCase().indexOf(myFilter.all) !== -1);
+                && ((data.Tags ? data.Tags.trim().toLowerCase().indexOf(myFilter.all) !== -1: false)
+                || (data.Description ? data.Description.trim().toLowerCase().indexOf(myFilter.all) !== -1: false));
         };
     }
 
@@ -78,11 +88,18 @@ export class TestTableComponent implements OnInit{
         
     }
 
-    onSelect(test: any) {
+    onSolve(test: any) {
         switch (test.Type) {
             case "Flashcards":
-                //this.router.navigate(["flashcard", test.Id], { state: { desc: test.Description }});
                 this.router.navigate(["flashcard", test.Id]);
+                break;
+        }
+    }
+
+    onEdit(test: any) {
+        switch (test.Type) {
+            case "Flashcards":
+                this.router.navigate(["tests/edit/Flashcards/", test.Id]);
                 break;
         }
     }

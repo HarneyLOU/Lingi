@@ -25,6 +25,8 @@ export class FlashcardEditComponent{
   testLanguage: Language;
   testLevel: Level;
   testId: number = 0;
+  testUser: string;
+  allowed: boolean = false;
 
   constructor(
       private testService: TestService,
@@ -33,7 +35,6 @@ export class FlashcardEditComponent{
       private router: Router,
       private http: HttpClient,
       @Inject('BASE_URL') private baseUrl: string) {
-      //let type = this.router.getCurrentNavigation().extras.state.type;
       var id = +this.activatedRoute.snapshot.params["id"];
 
       this.testId = id;
@@ -44,6 +45,8 @@ export class FlashcardEditComponent{
         this.testLanguage = result.Language;
         this.testLevel = result.Level;
         this.testKeywords = result.Tags;
+          if (result.User != localStorage.getItem("user").toString()) router.navigate(["home"]);
+          else this.allowed = true;
         console.log(result);
       }, error => console.error(error));
 

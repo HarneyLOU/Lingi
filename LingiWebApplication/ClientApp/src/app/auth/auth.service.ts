@@ -99,7 +99,7 @@ export class AuthService {
             user = result;
             localStorage.setItem(
                 this.currentUser,
-                JSON.stringify(user.UserName));
+                user.UserName);
         })
     }
 

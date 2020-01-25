@@ -39,6 +39,39 @@ namespace LingiWebApplication.Controllers.TestControllers
             return new JsonResult(quizzes, JsonSettings);
         }
 
-       
+        [HttpPut]
+        public IActionResult Put([FromBody]List<QuizViewModel> model)
+        {
+            if (model == null) return new StatusCodeResult(500);
+
+            List<Quiz> newQuizzes = new List<Quiz>();
+
+            foreach (QuizViewModel quiz in model)
+            {
+                var newQuiz = new Quiz()
+                {
+                    TestId = quiz.TestId,
+                    Question = quiz.Question
+                };
+                DbContext.Quizzes.Add(newQuiz);
+
+                List<QuizAnswer> newQuizAnswers = new List<QuizAnswer>();
+                foreach (QuizAnswerViewModel quizAnswer in quiz.Answers)
+                {
+                    newQuizAnswers.Add(new QuizAnswer
+                    {
+                        QuizId = newQuiz.Id,
+                        Answer = quizAnswer.Answer,
+                        Correct = quizAnswer.Correct
+                    });
+                }
+                newQuiz.Answers = newQuizAnswers;
+                newQuizzes.Add(newQuiz);
+                DbContext.QuizAnswers.AddRange(newQuizAnswers);
+            }
+            DbContext.SaveChanges();
+
+            return new JsonResult(Mapper.Map<List<QuizViewModel>>(newQuizzes));
+        }
     }
 }

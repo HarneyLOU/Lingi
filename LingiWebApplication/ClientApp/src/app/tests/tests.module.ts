@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FlashcardCreateComponent } from './testForms/flashcard-create/flashcard-create.component';
 import { BaseFormComponent } from './testForms/base-form/base-form.component';
 import { TestTableComponent } from './test-table/test-table.component';
+import { BrowseTestsComponent } from './test-table/browse-tests/browse-tests.component';
 import { TestComponent } from './test/test.component';
 import { RateComponent } from './rate/rate.component';
 import { FlashcardComponent } from './test/flashcard/flashcard.component';
@@ -20,6 +21,7 @@ const routes = [
   { path: 'tests/add/Flashcards', component: FlashcardCreateComponent },
   { path: 'tests/edit/Flashcards/:id', component: FlashcardEditComponent },
   { path: 'tests/add/Quiz', component: QuizCreateComponent },
+  { path: 'tests/user/:user', component: BrowseTestsComponent },
 ];
 
 @NgModule({
@@ -32,7 +34,8 @@ const routes = [
         SingleFlashcardComponent,
         RateComponent,
         QuizCreateComponent,
-        FlashcardEditComponent
+        FlashcardEditComponent,
+        BrowseTestsComponent
     ],
   imports: [
     SharedModule,
