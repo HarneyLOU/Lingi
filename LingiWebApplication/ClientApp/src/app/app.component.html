@@ -5,12 +5,15 @@
       <mat-sidenav #sidenav [opened]="open && this.isLoggedIn()" mode="side" class="sidenav">
         <div *ngIf="this.isLoggedIn()"><app-nav-bar></app-nav-bar></div>
 </mat-sidenav>
-      <mat-sidenav-content>
-        <div class="showButton" *ngIf="this.isLoggedIn()">
-          <p><button mat-mini-fab style="margin-left: 10px;" (click)="open=!open">Show<mat-icon>keyboard_arrow_right</mat-icon></button></p>
+    <mat-sidenav-content>
+      <div *ngIf="this.isLoggedIn()">
+        <div class="left-bar">
+          <mat-icon (click)="open=!open" *ngIf="!open" style="color:#f6f5f6;cursor:pointer;font-size:90px;position: absolute;left:-20px;top:27%;">keyboard_arrow_right</mat-icon>
+          <mat-icon (click)="open=!open" *ngIf="open" style="color:#f6f5f6;cursor:pointer;font-size:90px;position: absolute;left:-20px;top:27%;">keyboard_arrow_left</mat-icon>
         </div>
-        <router-outlet></router-outlet>
-      </mat-sidenav-content>
+      </div>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
   </mat-sidenav-container>
 
   <mat-toolbar class="footer">Footer</mat-toolbar>

@@ -30,10 +30,22 @@ export class TestService {
         return this.http.put<Flashcard[]>(this.baseUrl + "api" + "/flashcard",flashcards);
     }
 
+    editFlashcards(flashcards: Flashcard[]){
+        return this.http.post<Flashcard[]>(this.baseUrl + "api" + "/flashcard",flashcards);
+    }
+
+    deleteFlashcards(id: number){
+        return this.http.delete<Flashcard[]>(this.baseUrl + "api" + "/flashcard/" + id);
+    }
+
     addTest(test: Test){
         return this.http.put<Test>(this.baseUrl + "api" + "/test", test);
     }
 
+    editTest(test: Test){
+        return this.http.post<Test>(this.baseUrl + "api" + "/test", test);
+    }
+    
     getUser(): Observable<any> {
         return this.http.get<any>(this.baseUrl + "api" + "/user");
     }

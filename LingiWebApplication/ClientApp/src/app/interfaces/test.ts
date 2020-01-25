@@ -1,4 +1,5 @@
 interface Test {
+    Id?: number;
     Tags: string;
     Description: string;
     Language: string;

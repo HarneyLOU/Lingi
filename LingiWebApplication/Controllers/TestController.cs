@@ -100,7 +100,6 @@ namespace LingiWebApplication.Controllers
         public IActionResult Post([FromBody]TestViewModel model)
         {
             if (model == null) return new StatusCodeResult(500);
-
             var test = DbContext.Tests.Where(x => x.Id == model.Id).FirstOrDefault();
 
             if (test == null)
