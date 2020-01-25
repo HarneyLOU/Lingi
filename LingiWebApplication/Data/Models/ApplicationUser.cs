@@ -29,6 +29,6 @@ namespace LingiWebApplication.Data.Models
         public DateTime LastModifiedDate { get; set; }
 
         [ForeignKey("LanguageId")]
-        public Language Language { get; set; }
+        public virtual Language Language { get; set; }
     }
 }
