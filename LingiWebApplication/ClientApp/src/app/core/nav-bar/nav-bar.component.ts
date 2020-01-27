@@ -13,7 +13,7 @@ export class NavBarComponent implements OnInit {
 
     constructor() {
         this.user = localStorage.getItem("user").toString();
-        this.welcome = "Logged as: " + this.user.replace("\"", "").replace("\"", "");
+        this.welcome = "Logged as: " + this.user;
     }
 
   ngOnInit() {

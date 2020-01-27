@@ -1,0 +1,31 @@
+<div class="login">
+  <mat-card class="my-card">
+    <mat-card-header>
+      <mat-card-title>REGISTER</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="my-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-error *ngIf="form.errors?.auth">
+          {{form.errors.auth}}
+        </mat-error>
+        <mat-form-field class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput autocomplete="off" placeholder="Email" name="email" required formControlName="Username">
+          <mat-error *ngIf="hasError('Username')">
+            Type your username or email
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" placeholder="Password" name="password" required formControlName="Password">
+          <mat-error *ngIf="hasError('Username')">
+            Type your password
+          </mat-error>
+        </mat-form-field>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">LOGIN</button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

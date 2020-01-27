@@ -14,6 +14,10 @@ export class TestService {
         return this.http.get<Test[]>(this.baseUrl + "api" + "/test");
     }
 
+    getUserTests(user: string): Observable<Test[]> {
+        return this.http.get<Test[]>(this.baseUrl + "api" + "/test/user/" + user);
+    }
+
     getTest(id: number): Observable<Test> {
         return this.http.get<Test>(this.baseUrl + "api" + "/test/" + id);
     }

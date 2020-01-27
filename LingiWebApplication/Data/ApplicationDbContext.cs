@@ -10,7 +10,7 @@ namespace LingiWebApplication.Data
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
-  
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,10 +35,16 @@ namespace LingiWebApplication.Data
 
             modelBuilder.Entity<Test>().ToTable("AppTests");
             modelBuilder.Entity<Test>().Property(i => i.Id).ValueGeneratedOnAdd();
-            //modelBuilder.Entity<Test>().HasOne(c => c.Language).WithMany(e => e.Tests);
 
             modelBuilder.Entity<Flashcard>().ToTable("AppFlashcards");
             modelBuilder.Entity<Flashcard>().Property(i => i.Id).ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Quiz>().ToTable("AppQuizzes");
+            modelBuilder.Entity<Quiz>().Property(i => i.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Quiz>().HasMany(c => c.Answers).WithOne(e => e.Quiz);
+
+            modelBuilder.Entity<QuizAnswer>().ToTable("AppQuizAnswers");
+            modelBuilder.Entity<QuizAnswer>().Property(i => i.Id).ValueGeneratedOnAdd();
         }
 
         public DbSet<Type> Types { get; set; }
@@ -46,5 +52,7 @@ namespace LingiWebApplication.Data
         public DbSet<Language> Languages { get; set; }
         public DbSet<Test> Tests { get; set; }
         public DbSet<Flashcard> Flashcards { get; set; }
+        public DbSet<Quiz> Quizzes { get; set; }
+        public DbSet<QuizAnswer> QuizAnswers { get; set; }
     }
 }

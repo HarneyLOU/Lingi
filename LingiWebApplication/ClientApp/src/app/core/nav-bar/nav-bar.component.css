@@ -2,20 +2,16 @@
   align-items: center;
   margin: auto;
   overflow: hidden;
+ 
 }
 
 mat-chip-list mat-chip {
   max-width: 100%;
-  height: 70px;
-  min-height: 40px;
-  text-align: center;
+  height: 91px;
   border-radius: 0 0 0 0;
   font-size: large;
-  background: linear-gradient(45deg, #673ab7, #673ab7 60%, #F6F5F6 40%, #F6F5F6) !important
-}
-
-mat-chip-list mat-chip:hover {
-font-size: 24px;
+  background: linear-gradient(-90deg, #FFD640, #673ab7) !important;
+  margin: 0px !important;
 }
 
 .logged {
@@ -23,6 +19,6 @@ font-size: 24px;
   background: 0;
   font-size: larger;
   width: 100%;
-  margin: 0;
-  margin-bottom: 10px;
+  margin:0 !important;
+  height: 10%
 }

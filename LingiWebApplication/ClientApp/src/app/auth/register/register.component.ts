@@ -2,14 +2,13 @@ import { Component, Inject } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 import { AuthService } from '../auth.service';
-
 @Component({
-    selector: "login",
-    templateUrl: "./login.component.html",
-    styleUrls: ['./login.component.css']
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css']
 })
 
-export class LoginComponent {
+export class RegisterComponent {
     title: string;
     form: FormGroup;
 
@@ -39,6 +38,17 @@ export class LoginComponent {
 
         this.authService.login(username, password)
             .subscribe(res => {
+                // login successful
+
+                // outputs the login info through a JS alert.
+                // IMPORTANT: remove this when test is done.
+                alert("Login successful! "
+                    + "USERNAME: "
+                    + username
+                    + " TOKEN: "
+                    + this.authService.getAuth()!.token
+                );
+
                 this.router.navigate(["home"]);
             },
                 err => {
@@ -71,7 +81,7 @@ export class LoginComponent {
     }
 
     // returns TRUE if the FormControl is invalid after user changes
-    hasError(name: string) : boolean {
+    hasError(name: string): boolean {
         var e = this.getFormControl(name);
         return e && (e.dirty || e.touched) && e.invalid;
     }

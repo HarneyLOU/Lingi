@@ -38,6 +38,10 @@ namespace LingiWebApplication.Data
             {
                 SeedExampleFlashcards(dbContext);
             }
+            if (!dbContext.Quizzes.Any())
+            {
+                SeedExampleQuizzes(dbContext);
+            }
         }
 
         private static void SeedCategories(ApplicationDbContext dbContext)
@@ -156,7 +160,7 @@ namespace LingiWebApplication.Data
                 string testTags = "";
                 do
                 {
-                    testTags += tags[r.Next(12)] + "|";
+                    testTags += tags[r.Next(12)] + " ";
                     j++;
                 }
                 while (r.Next(2) != 0 && j < 3);
@@ -165,8 +169,25 @@ namespace LingiWebApplication.Data
                 int l = r.Next(5) + 1;
                 test.Level = dbContext.Levels.Where(x => x.Id == l).FirstOrDefault();
                 int t = r.Next(3) + 1;
-                test.Type = dbContext.Types.Where(x => x.Id == t).FirstOrDefault();
-                test.Rate = Math.Round(r.NextDouble() * 5, 2);
+                switch(i)
+                {
+                    case 1:
+                        test.Type = dbContext.Types.Where(x => x.Id == 1).FirstOrDefault();
+                        break;
+                    case 2:
+                        test.Type = dbContext.Types.Where(x => x.Id == 1).FirstOrDefault();
+                        break;
+                    case 3:
+                        test.Type = dbContext.Types.Where(x => x.Id == 2).FirstOrDefault();
+                        break;
+                    case 4:
+                        test.Type = dbContext.Types.Where(x => x.Id == 2).FirstOrDefault();
+                        break;
+                    default:
+                        test.Type = dbContext.Types.Where(x => x.Id == t).FirstOrDefault();
+                        break;
+                }
+                test.Rate = Math.Round(r.NextDouble() * 4, 1) + 1;
                 dbContext.Tests.Add(test);
                 dbContext.SaveChanges();
             }
@@ -213,6 +234,92 @@ namespace LingiWebApplication.Data
                     Example1 = "To bardzo duży dom",
                     Example2 = "This is a very big house",
                 }
+            });
+            dbContext.SaveChanges();
+        }
+
+        private static void SeedExampleQuizzes(ApplicationDbContext dbContext)
+        {
+            dbContext.Quizzes.AddRange(new List<Quiz>()
+            {
+                new Quiz()
+                {
+                    Id = 1,
+                    TestId = 3,
+                    Question = "Ask out",
+                },
+                new Quiz()
+                {
+                    Id = 2,
+                    TestId = 3,
+                    Question = "Hang out"
+
+                },
+                new Quiz()
+                {
+                    Id = 3,
+                    TestId = 3,
+                    Question = "Bank on"
+
+                },
+            });
+            dbContext.QuizAnswers.AddRange(new List<QuizAnswer>()
+            {
+                new QuizAnswer()
+                {
+                    QuizId = 1,
+                    Answer = "Zaprosić kogoś",
+                    Correct = true
+                },
+                new QuizAnswer()
+                {
+                    QuizId = 1,
+                    Answer = "Zapytać o coś",
+                    Correct = false
+
+                },
+                new QuizAnswer()
+                {
+                    QuizId = 1,
+                    Answer = "Oświadczyć się",
+                    Correct = false
+
+                },
+                new QuizAnswer()
+                {
+                    QuizId = 1,
+                    Answer = "Wyręczyć kogoś",
+                    Correct = false
+
+                },
+                new QuizAnswer()
+                {
+                    QuizId = 2,
+                    Answer = "Spacerować",
+                    Correct = true
+
+                },
+                 new QuizAnswer()
+                {
+                    QuizId = 2,
+                    Answer = "Wisieć",
+                    Correct = false
+
+                },
+                 new QuizAnswer()
+                {
+                    QuizId = 3,
+                    Answer = "Przeliczać",
+                    Correct = false
+
+                },
+                new QuizAnswer()
+                {
+                    QuizId = 3,
+                    Answer = "Liczyć na kogoś",
+                    Correct = true
+
+                },
             });
             dbContext.SaveChanges();
         }

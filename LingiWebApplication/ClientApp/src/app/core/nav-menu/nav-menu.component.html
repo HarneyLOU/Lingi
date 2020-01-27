@@ -12,7 +12,8 @@
       <a mat-button routerLink="tests"> Browse tests </a>
       <a *ngIf="this.auth.isLoggedIn()" mat-button routerLink="tests/add"> Add Test </a>
       <a *ngIf="!this.auth.isLoggedIn()" mat-button routerLink="login"> Sign in </a>
-      <a *ngIf="this.auth.isLoggedIn()" mat-button (click)="this.auth.logout()"> Sign out </a>
+      <a *ngIf="!this.auth.isLoggedIn()" mat-button routerLink="register"> Register </a>
+      <a *ngIf="this.auth.isLoggedIn()" mat-button (click)="this.auth.logout()" routerLink="home"> Sign out </a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

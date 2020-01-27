@@ -25,6 +25,8 @@ namespace LingiWebApplication.Data
                 opts => opts.MapFrom(source => source.User.UserName));
 
             CreateMap<Flashcard, FlashcardViewModel>().ReverseMap();
+            CreateMap<Quiz, QuizViewModel>().ReverseMap();
+            CreateMap<QuizAnswer, QuizAnswerViewModel>().ReverseMap();
 ;
         }
     }

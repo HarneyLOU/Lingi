@@ -46,10 +46,11 @@ body {
   box-shadow: 1px 3px #E2E1E2 !important;
 }
 
-.main-card{
-  min-width:70%;
-  max-width:70%;
+.main-card {
+  min-width: 70%;
+  max-width: 70%;
   margin: auto;
+  margin-top: 20px;
 }
 
 .my-shadow {
@@ -82,20 +83,22 @@ body {
 }
 
 .container {
+  background: url("assets/background.jpg") no-repeat center center fixed;
   position: absolute !important;
   top: 60px;
-  bottom: 40px;
+  bottom: 0px;
   left: 0;
   right: 0;
-  background-color: #E5F0FF
+  background-color: #E5F0FF;
+  background-size: cover;
 }
 
 .sidenav {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20%;
-  background-color: white;
+  min-width: 20%;
+  background-color: rgba(255,255,255,0.3);
 }
 
 .header {
@@ -115,7 +118,7 @@ body {
 
 .left-bar{
   position: absolute;
-  top:5%;
+  top:8%;
   left:0px;
   width:60px;
   height: 30%;

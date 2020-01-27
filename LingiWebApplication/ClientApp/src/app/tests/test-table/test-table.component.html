@@ -32,7 +32,15 @@
           <div class="element-detail"
                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
             <div class="element-button">
-              <button mat-raised-button color="primary" (click)="onSelect(element)">Solve</button>
+              <button mat-raised-button color="primary" (click)="onSolve(element)">Solve</button>
+            </div>
+            <div *ngIf="currentUser">
+              <div class="element-button">
+                <button mat-raised-button color="accent" (click)="onEdit(element)">Edit</button>
+              </div>
+            </div>
+            <div class="element-button">
+              <button mat-raised-button color="warn">Share</button>
             </div>
             <div class="element-description">
               {{element.Description}}
