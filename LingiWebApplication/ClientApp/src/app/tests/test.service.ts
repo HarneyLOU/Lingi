@@ -53,4 +53,8 @@ export class TestService {
     getUser(): Observable<any> {
         return this.http.get<any>(this.baseUrl + "api" + "/user");
     }
+
+    addQuiz(quiz: Quiz[]){
+        return this.http.put<Quiz[]>(this.baseUrl + "api" + "/quiz", quiz);
+    }
 }

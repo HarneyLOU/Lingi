@@ -117,74 +117,53 @@ export class QuizCreateComponent{
             this.questionz[i].splice(index,1);
             this.quiz[i].Answers.splice(index,1);
         } else this.messageService.error("Minimum two answers")
-        //this.quiz.splice(index,1);
+    }
+
+    addQuiz(){
+        let isPossible: boolean = true;
+        this.quiz.forEach(element => {
+            if(element.Question == "") isPossible = false;
+            element.Answers.forEach(e => {
+                if(e.Answer == "") isPossible = false;
+        
+            });
+        });
+
+        if(isPossible){
+            this.quiz.forEach(e => {
+                e.TestId = this.editTest.id
+            });
+
+            this.testService.addQuiz(this.quiz).subscribe(result => {
+                console.log(result.toString())
+                this.messageService.success("Created new quiz");
+                this.router.navigateByUrl('/tests/add', { skipLocationChange: true }).then(() => {
+                this.router.navigate(['/tests/add']);
+            }); 
+        }, error => console.error(error));
+        console.log(this.quiz);
+        } else this.messageService.error("Fill the form correctly")
     }
 
     addTest(){
-        console.log(this.quiz);
+        this.testService.addTest(this.createTest()).subscribe(result => {
+            this.editTest = result;
+            console.log(result.Id)
+            this.addQuiz();
+        }, error => console.error(error))
+        
     }
 
-
-
-    // addFlashcards(){
-    //     let isPossible: boolean = true;
-    //     this.flashcards.forEach(element => {
-    //         if(element.Word1 == "") isPossible = false;
-    //         if(element.Word2 == "") isPossible = false;
-    //         if(element.Example1 == "") isPossible = false;
-    //         if(element.Example2 == "") isPossible = false;
-    //     });
-
-    //     if(isPossible){
-    //         console.log(this.editTest.Id)
-    //         this.testService.addFlashcards(this.createFlashcards(this.editTest.id)).subscribe(result => {
-    //             console.log(result.toString())
-    //             this.messageService.success("Created new flashcards");
-    //             this.router.navigateByUrl('/tests/add', { skipLocationChange: true }).then(() => {
-    //                 this.router.navigate(['/tests/add']);
-    //             }); 
-    //         }, error => console.error(error));
-    //     } else {
-    //         this.messageService.error("Invalid form");
-    //     }
-    // }
-
-    // addTest(){
-    //     this.testService.addTest(this.createTest()).subscribe(result => {
-    //         this.editTest = result;
-    //         this.addFlashcards();
-    //     }, error => console.error(error))
-    //     this.addFlashcards();
-    // }
-
-    // private createTest(){
-    //     let test: Test = {
-    //         Tags: this.testKeywords,
-    //         Description: this.testDescription,
-    //         Language: this.testLanguage.Name,
-    //         Type: this.testType,
-    //         Level: this.testLevel.Name,
-    //         User: null,
-    //     }
-    //     return test;
-    // }
-
-    // private createFlashcards(testId: number){
-    //     let flashcards: Flashcard[] = [];
-    //     let i: number = 0;
-
-    //     for (let entry of this.flashcards) {
-    //         let flashcard: Flashcard = {
-    //             TestId: testId,
-    //             Word1: entry.Word1,
-    //             Word2: entry.Word2,
-    //             Example1: entry.Example1,
-    //             Example2: entry.Example2
-    //         }
-    //         i++;
-    //         flashcards.push(flashcard);
-    //     }
-    //     return flashcards;
-    // }
+    private createTest(){
+        let test: Test = {
+            Tags: this.testKeywords,
+            Description: this.testDescription,
+            Language: this.testLanguage.Name,
+            Type: this.testType,
+            Level: this.testLevel.Name,
+            User: null,
+        }
+        return test;
+    }
     
 }
