@@ -1,1 +1,69 @@
-<p>quiz-create works!</p>
+<div class="main-card">
+    <mat-card class="my-card">
+      <mat-card-header class="cardHeader">
+        <mat-card-title class="cardTitle">CREATE QUIZ</mat-card-title>
+      </mat-card-header>
+   
+  <form class="my-form" style="min-width: 100%;" *ngIf="!addingWordPanel">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Title" name="testDescription" [(ngModel)]="testDescription"/>
+    </mat-form-field>
+    
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Tags" name="testKeywords" [(ngModel)]="testKeywords"/>
+    </mat-form-field>
+    
+    <div style="padding-top:20px" for="langugage">Choose language</div>
+    <mat-select style="margin-top:10px" class="full-width" [(ngModel)]="testLanguage" name="language" placeholder="Select language">
+      <mat-option *ngFor="let language of languages" [value]="language">{{language.Name}}</mat-option>
+    </mat-select>
+  
+    <div style="padding-top:20px" for="level">Choose level</div>
+    <mat-select style="margin-top:10px"  class="full-width"  [(ngModel)]="testLevel" name="level" placeholder="Select level">
+      <mat-option *ngFor="let level of levels" [value]="level">{{level.Name}}</mat-option>
+    </mat-select>
+  
+    <button class="full-width" style="margin-top: 60px;" mat-raised-button (click)="showAddingWordPanel()">Add words!</button>
+  </form>
+  
+  <div *ngIf="addingWordPanel">
+    <mat-card class="my-card">
+      <mat-card-header>
+        <mat-card-title>Adding questions and answers</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="full-width">
+        <div class="full-width" *ngFor="let item of questionz; let i=index">
+          <button mat-button (click)="deleteWord(i)" class="deleteButton">x</button>
+          <mat-form-field style="margin-left:20px;width:90%">
+            <div class="alert alert-danger" *ngIf="questionModel.invalid && (questionModel.touched || questionModel.dirty)">
+              <div style="position:absolute" *ngIf="questionModel.errors.required"> Word is needed </div>
+          </div>
+            <input required type="text" minlength="2" maxlength="40" class="inputWord" matInput [(ngModel)]="quiz[i].Question" name="question" placeholder="Question" #wordInput #questionModel="ngModel"/>
+          </mat-form-field>
+
+          <div *ngFor="let item of questionz[i]; let j=index">
+            <button mat-button style="margin-left:5%;" (click)="deleteAnswer(i,j)" class="deleteButton">x</button>
+            <mat-form-field style="width:85%">
+              <div class="alert alert-danger" *ngIf="questionModel.invalid && (questionModel.touched || questionModel.dirty)">
+                <div style="position:absolute" *ngIf="questionModel.errors.required"> Word is needed </div>
+            </div>
+              <input required type="text" minlength="2" maxlength="40" class="inputWord" matInput [(ngModel)]="quiz[i].Answers[j].Answer" name="answer" placeholder="Answer" #wordInput #questionModel="ngModel"/>
+            </mat-form-field>
+          </div>
+          <button mat-button (click)="addNewAnswer(i)">Add answer</button>
+
+       
+        </div>
+     
+          <button mat-button (click)="hideAddingWordPanel()">Back</button>
+          <button mat-button (click)="addNewWord()">Add more</button>
+          <button class="saveButton" mat-button  (click)="addTest()">Save</button>
+  
+          
+      </mat-card-content>   
+    </mat-card>
+  </div>
+  
+    </mat-card>
+  </div>
+  
