@@ -93,6 +93,9 @@ export class TestTableComponent implements OnInit{
             case "Flashcards":
                 this.router.navigate(["flashcard", test.Id]);
                 break;
+            case "Quiz":
+                this.router.navigate(["quiz", test.Id]);
+                break;
         }
     }
 

@@ -35,8 +35,8 @@ namespace LingiWebApplication.Controllers.TestControllers
             List<Quiz> quizzes = DbContext.Quizzes
                 .Include(x => x.Answers)
                 .Where(x => x.TestId == id).ToList();
-            //var viewQuizzes = Mapper.Map<List<QuizViewModel>>(quizzes);
-            return new JsonResult(quizzes, JsonSettings);
+            var viewQuizzes = Mapper.Map<List<QuizViewModel>>(quizzes);
+            return new JsonResult(viewQuizzes, JsonSettings);
         }
 
         [HttpPut]

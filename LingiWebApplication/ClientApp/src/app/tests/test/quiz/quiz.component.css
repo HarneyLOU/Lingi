@@ -1,0 +1,38 @@
+.my-card {
+  padding-top: 50px;
+  min-width: 150px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.center {
+  margin-top: 10px;
+  display: block;
+  text-align: center
+}
+
+  .center button {
+    width: 150px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+.right {
+  display: block;
+  text-align: right;
+}
+
+.left {
+  width: 350px;
+  word-wrap: break-word;
+}
+
+.radio-button {
+  margin: 5px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}

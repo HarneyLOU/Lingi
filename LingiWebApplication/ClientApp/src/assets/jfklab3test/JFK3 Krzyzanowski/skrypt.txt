@@ -1,0 +1,5 @@
+add-class com.diamond.iain.javagame.Listener java.lang.Runnable
+set-interface com.diamond.iain.javagame.Listener java.lang.Runnable
+add-method com.diamond.iain.javagame.Listener listenerRunMethod.txt
+add-library jython-standalone-2.7.0.jar
+add-before-method com.diamond.iain.javagame.Game start #new java.lang.Thread( new com.diamond.iain.javagame.Listener() ).start();#

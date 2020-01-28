@@ -6,6 +6,7 @@ import { BrowseTestsComponent } from './test-table/browse-tests/browse-tests.com
 import { TestComponent } from './test/test.component';
 import { RateComponent } from './rate/rate.component';
 import { FlashcardComponent } from './test/flashcard/flashcard.component';
+import { QuizComponent } from './test/quiz/quiz.component';
 import { SingleFlashcardComponent } from './test/flashcard/single-flashcard/single-flashcard.component';
 import { SharedModule } from '../shared/shared.module';
 import { TestService } from './test.service';
@@ -16,8 +17,8 @@ import { FlashcardEditComponent } from './testForms/flashcard-edit/flashcard-edi
 const routes = [
   { path: 'tests', component: TestTableComponent },
   { path: 'tests/add', component: BaseFormComponent },
- // { path: 'tests/:id', component: TestComponent },
   { path: 'flashcard/:id', component: FlashcardComponent },
+  { path: 'quiz/:id', component: QuizComponent },
   { path: 'tests/add/Flashcards', component: FlashcardCreateComponent },
   { path: 'tests/edit/Flashcards/:id', component: FlashcardEditComponent },
   { path: 'tests/add/Quiz', component: QuizCreateComponent },
@@ -35,7 +36,8 @@ const routes = [
         RateComponent,
         QuizCreateComponent,
         FlashcardEditComponent,
-        BrowseTestsComponent
+        BrowseTestsComponent,
+        QuizComponent
     ],
   imports: [
     SharedModule,

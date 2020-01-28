@@ -1,5 +1,6 @@
 
 .my-card {
+  width: 100%
 }
 
 .grid1 {
@@ -10,11 +11,14 @@
   background-color: #F2F8FD;
 }
 
-.grid2 p{
-  font-size: medium
+  .grid2 mat-accordion {
+    height: 300px
+  }
+
+.grid2 p {
+    font-size: medium
 }
 
 .grid3 {
   background-color: #FF756B;
 }
-

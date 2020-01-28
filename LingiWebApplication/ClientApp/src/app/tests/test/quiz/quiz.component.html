@@ -1,0 +1,84 @@
+<div class="main-card">
+  <mat-card class="my-card">
+    <mat-card-header>
+      <div class="left">
+        <mat-card-title>Quiz by {{test?.User}}</mat-card-title>
+        <mat-card-subtitle>{{test?.Description}}</mat-card-subtitle>
+      </div>
+      <div class="right">
+        <div *ngIf="!ifWon && ifStarted; else elseRate">
+          <button mat-fab color="primary" (click)="onSelect()">Rules</button>
+        </div>
+        <ng-template #elseRate>
+          <div *ngIf="ifWon">
+            <button mat-fab color="accent" [disabled]="ifRated" (click)="openRate()">Rate</button>
+          </div>
+        </ng-template>
+      </div>
+    </mat-card-header>
+
+    <div *ngIf="ifStarted">
+      <mat-card>
+        <mat-card-content>
+
+
+
+          <mat-vertical-stepper #stepper>
+            <div *ngFor="let quiz of quizzes">
+
+              <mat-step>
+                <ng-template matStepLabel>
+                  {{quiz.Question}}<div *ngIf="ifWon">
+                    <div *ngIf="corrects[quizzes.indexOf(quiz)]==true; else wrong"><mat-icon>check_circle_outline</mat-icon></div>
+                    <ng-template #wrong><mat-icon>highlight_off</mat-icon></ng-template>
+                  </div>
+
+                </ng-template>
+                <mat-radio-group class="radio-group" [(ngModel)]="answers[quizzes.indexOf(quiz)]">
+                  <mat-radio-button class="radio-button" *ngFor="let answer of quiz.Answers" [value]="answer">{{answer.Answer}}</mat-radio-button>
+                </mat-radio-group>
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </mat-step>
+            </div>
+            <mat-step>
+              <ng-template matStepLabel>Done</ng-template>
+              <h4 style="margin-bottom: 10px">Check your answers and get the result</h4>
+              <div>
+                <button mat-flat-button matStepperPrevious>Back</button>
+                <button mat-flat-button color="warn" (click)="stepper.reset(); ifWon=false" style="margin-left: 10px">Reset</button>
+                <button mat-flat-button color="accent" (click)="onCheck()" style="margin-left: 10px">Check</button>
+              </div>
+            </mat-step>
+          </mat-vertical-stepper>
+          <div *ngIf="ifWon" class="center">
+            <h3>Your result is: {{correct}}/{{size}}</h3>
+            <button mat-flat-button color="primary" (click)="onFinish()">Finish</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+
+    <div *ngIf="!ifStarted">
+      <mat-card-content>
+        <h3>
+          Solve this quiz to improve your skills
+        </h3>
+        <ul>
+          <li>Read the question</li>
+          <li>Answer the question or translate the word</li>
+          <li>Check your choices and show the result</li>
+          <li>You can take the quiz again, just click reset</li>
+          <li>Solve more quizzes and gain new experience</li>
+        </ul>
+      </mat-card-content>
+      <div class="center">
+        <button mat-flat-button color="primary" (click)="onSelect()">Let's go</button>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
