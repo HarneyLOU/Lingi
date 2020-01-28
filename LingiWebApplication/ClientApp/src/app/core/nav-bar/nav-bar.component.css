@@ -10,7 +10,6 @@ mat-chip-list mat-chip {
   height: 91px;
   border-radius: 0 0 0 0;
   font-size: large;
-  background: linear-gradient(-90deg, #FFD640, #673ab7) !important;
   margin: 0px !important;
 }
 

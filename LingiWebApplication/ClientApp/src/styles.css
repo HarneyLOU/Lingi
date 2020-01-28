@@ -83,7 +83,7 @@ body {
 }
 
 .container {
-  background: url("assets/background.jpg") no-repeat center center fixed;
+  background: url("assets/background1.jpg") no-repeat center center fixed;
   position: absolute !important;
   top: 60px;
   bottom: 0px;
