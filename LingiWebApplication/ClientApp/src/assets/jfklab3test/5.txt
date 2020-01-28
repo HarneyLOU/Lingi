@@ -1,8 +1,0 @@
-from java.io import File
-from java.util import Scanner
-from java.lang import System
-from java.nio.file import Path
-from java.nio.file import Paths
-path = Paths.get(System.getProperty("user.home"), "dane.txt")
-scanner = Scanner(File(path.toString()))
-while scanner.hasNextLine():System.out.println(scanner.nextLine())
