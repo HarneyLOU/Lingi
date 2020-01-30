@@ -20,6 +20,18 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-form-field class="space">
+      <mat-label>Test's level</mat-label>
+      <mat-select (selectionChange)="applyFilter($event.value, 'level')">
+        <mat-option value="all">
+          All
+        </mat-option>
+        <mat-option *ngFor="let level of levels" [value]="level.Name">
+          {{level.Name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
 
       <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">

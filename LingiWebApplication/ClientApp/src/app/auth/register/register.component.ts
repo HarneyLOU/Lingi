@@ -17,9 +17,9 @@ export class RegisterComponent {
         private authService: AuthService,
         @Inject('BASE_URL') private baseUrl: string) {
 
-        this.title = "User Login";
+        if (this.authService.isLoggedIn()) router.navigate(["home"]);
 
-        // initialize the form
+        this.title = "User Login";
         this.createForm();
 
     }

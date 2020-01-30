@@ -1,0 +1,29 @@
+<div class="main-card">
+  <mat-card class="my-card">
+    <mat-card-header>
+      <mat-card-title>Your profile</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list role="list">
+        <mat-list-item role="listitem"><b>Your display name:&nbsp;</b>{{user.UserName}}<mat-chip><mat-icon>account_circle</mat-icon>Edit</mat-chip></mat-list-item>
+
+        <mat-list-item role="listitem"><b>Your email:&nbsp;</b>{{user.Email}}<mat-chip><mat-icon>alternate_email</mat-icon>Edit</mat-chip></mat-list-item>
+
+        <mat-list-item role="listitem"><b>Reset you password</b><mat-chip color="accent" selected><mat-icon>security</mat-icon>Reset</mat-chip></mat-list-item>
+
+        <mat-list-item role="listitem"><b>Your current language:&nbsp;</b>{{user.Language}}</mat-list-item>
+        <mat-chip color="primary" selected><mat-icon>description</mat-icon>Change your language</mat-chip>
+        <mat-list-item role="listitem" style="margin-top: 20px"><h3>Progress</h3></mat-list-item>
+        <img src="assets/goal.png">
+        <ul>
+          <li><b>Your current rank is: 3</b></li>
+          <li>Solved tests: 11</li>
+          <li>Added tests: 1</li>
+          <li>Assigned courses: 0</li>
+        </ul>
+        <p style="font-size: large">Points to next level: 570</p>
+        <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

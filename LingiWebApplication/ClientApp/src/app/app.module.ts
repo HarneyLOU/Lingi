@@ -22,7 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'register', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ]
 

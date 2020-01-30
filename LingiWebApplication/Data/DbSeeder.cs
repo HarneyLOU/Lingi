@@ -86,17 +86,35 @@ namespace LingiWebApplication.Data
                     Name = "Polish-English",
                     Description = "Polish-English",
                 },
-                new Language()
+                                new Language()
                 {
                     Id = 2,
-                    Name = "Polish-Russian",
-                    Description = "Polish-Russian",
+                    Name = "English-Polish",
+                    Description = "English-Polish",
                 },
                 new Language()
                 {
                     Id = 3,
+                    Name = "Polish-Russian",
+                    Description = "Polish-Russian",
+                },
+                                new Language()
+                {
+                    Id = 4,
+                    Name = "Russian-Polish",
+                    Description = "Russian-Polish",
+                },
+                new Language()
+                {
+                    Id = 5,
                     Name = "Polish-Spanish",
                     Description = "Polish-Spanish",
+                },
+                                new Language()
+                {
+                    Id = 6,
+                    Name = "Spanish-Polish",
+                    Description = "Spanish-Polish",
                 },
 
             });
@@ -146,7 +164,7 @@ namespace LingiWebApplication.Data
             
             Test test = new Test()
             {
-                Description = "Useful verbs for beginners",
+                Description = "Just an example test",
                 User = dbContext.Users.FirstOrDefault(),
                 Language = dbContext.Languages.Where(x => x.Id == 1).FirstOrDefault(),
                 LastModifiedDate = DateTime.Now,
@@ -348,7 +366,7 @@ namespace LingiWebApplication.Data
             {
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = "Admin",
-                Email = "admin@testmakerfree.com",
+                Email = "admin@lingi.com",
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate,
                 Language = dbContext.Languages.FirstOrDefault()
@@ -369,8 +387,8 @@ namespace LingiWebApplication.Data
             var user_Raszer = new ApplicationUser()
             {
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = "Raszer",
-                Email = "raszer@atom.pl",
+                UserName = "Mateusz",
+                Email = "mateusz@atom.pl",
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate,
                 Language = dbContext.Languages.FirstOrDefault()
@@ -387,7 +405,7 @@ namespace LingiWebApplication.Data
 
             if (await userManager.FindByNameAsync(user_Raszer.UserName) == null)
             {
-                await userManager.CreateAsync(user_Raszer, "Pass4Raszer");
+                await userManager.CreateAsync(user_Raszer, "Pass4Mateusz");
                 await userManager.AddToRoleAsync(user_Raszer, role_RegisteredUser);
                 user_Admin.EmailConfirmed = true;
                 user_Admin.LockoutEnabled = false;

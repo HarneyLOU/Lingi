@@ -28,6 +28,7 @@ namespace LingiWebApplication.Controllers
             : base(context, roleManager, userManager, configuration, mapper) { }
 
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult Get(int id)
         {
             Test test = DbContext.Tests
@@ -55,6 +56,7 @@ namespace LingiWebApplication.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetAll()
         {
             List<Test> tests = DbContext.Tests

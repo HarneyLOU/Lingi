@@ -7,9 +7,11 @@ import { MaterialModule } from '../shared/material.module';
 import { HomeComponent } from './home/home.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UserService } from './user/user.service';
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
+    { path: 'user', component: UserComponent },
 ]
 
 @NgModule({
@@ -17,7 +19,8 @@ const routes: Routes = [
         NavMenuComponent,
         NotFoundComponent,
         NavBarComponent,
-        HomeComponent
+        HomeComponent,
+        UserComponent
     ],
   imports: [
     CommonModule,

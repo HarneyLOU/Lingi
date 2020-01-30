@@ -27,6 +27,7 @@ export class TestTableComponent implements OnInit{
     expandedElement: Test | null;
 
     types: Type[];
+    levels: Level[];
 
     @Input() user: string;
     currentUser: string;
@@ -57,13 +58,17 @@ export class TestTableComponent implements OnInit{
             this.types = result
         }, error => console.error(error));
 
+        this.testService.getLevels().subscribe(result => {
+            this.levels = result
+        }, error => console.error(error));
+
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
 
         this.dataSource.filterPredicate = (data: any, filter: string) => {
             let myFilter = JSON.parse(filter);
             return (myFilter.type !== 'all' ? data.Type == myFilter.type : true)
-                //&& (myFilter.level !== 'all' ? data.Level == myFilter.level : true)
+                && (myFilter.level !== 'all' ? data.Level == myFilter.level : true)
                 && ((data.Tags ? data.Tags.trim().toLowerCase().indexOf(myFilter.all) !== -1: false)
                 || (data.Description ? data.Description.trim().toLowerCase().indexOf(myFilter.all) !== -1: false));
         };
@@ -79,6 +84,9 @@ export class TestTableComponent implements OnInit{
         switch (key) {
             case 'type':
                 this.filterValues.type = filterValue;
+                break;
+            case 'level':
+                this.filterValues.level = filterValue;
                 break;
             case 'all':
                 this.filterValues.all = filterValue.trim().toLowerCase();

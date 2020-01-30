@@ -61,4 +61,12 @@ export class TestService {
     addQuiz(quiz: Quiz[]){
         return this.http.put<Quiz[]>(this.baseUrl + "api" + "/quiz", quiz);
     }
+
+    getLanguages() {
+        return this.http.get<Language[]>(this.baseUrl + "api" + "/language");
+    }
+
+    getLevels() {
+        return this.http.get<Level[]>(this.baseUrl + "api" + "/level");
+    }
 }

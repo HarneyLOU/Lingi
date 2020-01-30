@@ -44,7 +44,7 @@ export class FlashcardComponent implements OnInit{
     ngOnInit() {
         var id = +this.activatedRoute.snapshot.params["id"];
         this.testService.getFlashcards(id).subscribe(result => {
-            this.flashcards = result;
+            this.flashcards = this.shuffle(result);
             this.flashcard = this.flashcards[0];
             this.size = this.flashcards.length;
             this.totalSize = this.size;
@@ -117,4 +117,20 @@ export class FlashcardComponent implements OnInit{
             console.log('The dialog was closed');
         });
     }
+
+    shuffle(array: any[]) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (0 !== currentIndex) {
+
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
 }

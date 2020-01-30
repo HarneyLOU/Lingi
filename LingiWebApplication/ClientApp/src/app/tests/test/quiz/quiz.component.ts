@@ -39,7 +39,10 @@ export class QuizComponent implements OnInit {
     ngOnInit() {
         var id = +this.activatedRoute.snapshot.params["id"];
         this.testService.getQuizzes(id).subscribe(result => {
-            this.quizzes = result;
+            this.quizzes = this.shuffle(result);
+            for (let quiz of this.quizzes) {
+                quiz.Answers = this.shuffle(quiz.Answers);
+            }
             this.size = this.quizzes.length;
         }, error => console.error(error));
 
@@ -91,5 +94,21 @@ export class QuizComponent implements OnInit {
             this.ifRated = true;
             console.log('The dialog was closed');
         });
+    }
+
+    shuffle(array: any[]) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        while (0 !== currentIndex) {
+
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
     }
 }
